@@ -37,7 +37,7 @@ setup_log_output() {
 	echo "Setting up log output..."
 	mkdir -p "$log_dir"
 	timestamp=$(date +%Y-%m-%d-%H:%M:%S)
-	log_file=$log_dir/$timestamp-$target_codename-$target_arch.log
+	log_file="$log_dir"/"$timestamp"-"$target_codename"-"$target_arch".log
 }
 
 customize_pbuilder_environment() {
@@ -52,9 +52,9 @@ customize_pbuilder_environment() {
 create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
-	sudo DIST=$target_distro ARCH=$target_arch pbuilder --create \
-		--architecture $target_arch \
-		--distribution $target_distro \
+	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
+		--architecture "$target_arch" \
+		--distribution "$target_distro" \
 		--compressprog pigz \
 		--keyring /etc/apt/trusted.gpg --debootstrapopts --keyring=/etc/apt/trusted.gpg
 }
@@ -77,7 +77,7 @@ build_product() {
 }
 
 upload_product() {
-	scp "$build_result"/*.deb $remote_user@$remote_server:$remote_repo_root/incoming/$target_codename/$target_arch
+	scp "$build_result"/*.deb "$remote_user"@"$remote_server":"$remote_repo_root"/incoming/"$target_codename"/"$target_arch"
 }
 
 cleanup() {
