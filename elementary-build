@@ -23,7 +23,7 @@ distro_to_codename() {
 	else
 		target_codename="$target_distro"
 	fi
-	basetgz=("/var/cache/pbuilder"/"$target_codename"-"$target_arch"-base.tgz)
+	basetgz="/var/cache/pbuilder"/"$target_codename"-"$target_arch"-base.tgz
 }
 
 setup_chroot_script_file() {
