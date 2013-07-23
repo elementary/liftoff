@@ -1,0 +1,107 @@
+#!/bin/sh
+
+# Target distribution
+target_distro="$1"
+
+# Target architectures
+target_arch="$2"
+
+# Load configuration
+. /etc/elementary-build.conf
+if [ -r ~/elementary-build.conf ]; then
+  . ~/elementary-build.conf
+fi
+
+distro_to_codename() {
+	echo "Determining distribution codename..."
+	if [ $target_distro == "testing" ] ; then
+		target_codename="$testing_codename"
+	elif [ $target_distro == "unstable" ] ; then
+		target_codename="$unstable_codename"
+	elif [ $target_distro == "stable" ] ; then
+		target_codename="$stable_codename"
+	else
+		target_codename="$target_distro"
+	fi
+	basetgz=("/var/cache/pbuilder"/"$target_codename"-"$target_arch"-base.tgz)
+}
+
+setup_chroot_script_file() {
+	echo "Setting up script for chroot..."
+	chroot_script_file=$(mktemp)
+	# Speed things up
+	echo 'echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup' > "$chroot_script_file"
+}
+
+setup_log_output() {
+	echo "Setting up log output..."
+	mkdir -p "$log_dir"
+	timestamp=$(date +%Y-%m-%d-%H:%M:%S)
+	log_file=$log_dir/$timestamp-$target_codename-$target_arch.log
+}
+
+customize_pbuilder_environment() {
+	setup_chroot_script_file
+	echo "Customizing pbuilder environment..."
+	pbuilder --execute --save-after-exec \
+		--basetgz "$basetgz" \
+		--compressprog pigz \
+		"$chroot_script_file"
+}
+
+create_pbuilder_environment() {
+	echo "Creating pbuilder environment..."
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
+	sudo DIST=$target_distro ARCH=$target_arch pbuilder --create \
+		--architecture $target_arch \
+		--distribution $target_distro \
+		--compressprog pigz \
+		--keyring /etc/apt/trusted.gpg --debootstrapopts --keyring=/etc/apt/trusted.gpg
+}
+
+update_pbuilder_environment() {
+	echo "Updating pbuilder environment..."
+	pbuilder --update \
+		--basetgz "$basetgz" \
+		--compressprog pigz
+}
+
+build_product() {
+	echo "Building..."
+	setup_log_output
+	build_result=$(mktemp -d)
+	pdebuild --architecture $target_arch \
+		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
+		--buildresult "$build_result" \
+		--logfile "$log_file"
+}
+
+upload_product() {
+	scp "$build_result"/*.deb $remote_user@$remote_server:$remote_repo_root/incoming/$target_codename/$target_arch
+}
+
+cleanup() {
+	rm -r "$build_result"
+	rm "$chroot_script_file"
+	gzip "$log_file"
+	find "$log_dir" -mtime +30 -type f -delete # Delete logs older than 30 days
+}
+
+trap cleanup EXIT INT TERM
+
+# Convert target_distro to target_codename
+distro_to_codename
+
+# Create environment if it doesn't exist otherwise just update it
+if ( ! [ -e "$basetgz" ] || [ $(stat --format=%s "$basetgz") -eq 0 ] ); then
+	create_pbuilder_environment
+	customize_pbuilder_environment
+else
+	update_pbuilder_environment
+fi	
+
+build_product # Build
+
+upload_product # Upload
+
+echo "Finished."
