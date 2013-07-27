@@ -10,6 +10,7 @@ Package: elementary-builder
 Architecture: any
 Depends: bzr,
          bzr-builder,
+         ccache,
          debhelper,
          gobject-introspection,
          pbuilder,

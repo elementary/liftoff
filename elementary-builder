@@ -12,6 +12,8 @@ if [ -r ~/elementary-builder.conf ]; then
   . ~/elementary-builder.conf
 fi
 
+elementary_builder_pbuilderrc="/etc/elementary-builder-pbuilderrc"
+
 distro_to_codename() {
 	echo "Determining distribution codename..."
 	if [ $target_distro == "testing" ] ; then
@@ -45,7 +47,7 @@ customize_pbuilder_environment() {
 	echo "Customizing pbuilder environment..."
 	pbuilder --execute --save-after-exec \
 		--basetgz "$basetgz" \
-		--compressprog pigz \
+		--configfile "$elementary_builder_pbuilderrc" \
 		"$chroot_script_file"
 }
 
@@ -55,7 +57,7 @@ create_pbuilder_environment() {
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
 		--architecture "$target_arch" \
 		--distribution "$target_distro" \
-		--compressprog pigz \
+		--configfile "$elementary_builder_pbuilderrc" \
 		--keyring /etc/apt/trusted.gpg --debootstrapopts --keyring=/etc/apt/trusted.gpg
 }
 
@@ -63,7 +65,7 @@ update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
 	pbuilder --update \
 		--basetgz "$basetgz" \
-		--compressprog pigz
+		--configfile "$elementary_builder_pbuilderrc"
 }
 
 build_product() {
@@ -73,7 +75,8 @@ build_product() {
 	pdebuild --architecture $target_arch \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
-		--logfile "$log_file"
+		--logfile "$log_file" \
+		--configfile "$elementary_builder_pbuilderrc"
 }
 
 upload_product() {
