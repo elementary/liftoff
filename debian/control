@@ -1,0 +1,20 @@
+Source: elementary-builder
+Section: devel
+Priority: optional
+Maintainer: Cody Garver <cody@elementaryos.org>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: http://elementaryos.org
+
+Package: elementary-builder
+Architecture: any
+Depends: bzr,
+         bzr-builder,
+         debhelper,
+         gobject-introspection,
+         pbuilder,
+         pigz,
+         quilt,
+         ${misc:Depends}
+Description: automated build system for elementary
+ A wrapper for pbuilder that automatically builds and uploads elementary packages.

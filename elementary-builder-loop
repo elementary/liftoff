@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Load configuration
-. /etc/elementary-build.conf
-if [ -r ~/elementary-build.conf ]; then
-  . ~/elementary-build.conf
+. /etc/elementary-builder.conf
+if [ -r ~/elementary-builder.conf ]; then
+  . ~/elementary-builder.conf
 fi
 
 # Start loop

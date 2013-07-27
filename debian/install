@@ -1,0 +1,3 @@
+elementary-builder usr/bin
+elementary-builder-loop usr/bin
+elementary-builder.conf etc
