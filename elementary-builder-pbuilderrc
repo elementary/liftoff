@@ -77,9 +77,13 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
 # List of Ubuntu suites. Update these when needed.
 UBUNTU_SUITES=("precise" "raring" "saucy")
 
-# Mirrors to use. Update these to your preferred mirror.
+# Mirrors
 DEBIAN_MIRROR="ftp.us.debian.org"
-UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
+if [ $(dpkg --print-architecture) == "armhf" ]; then
+    UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
+else
+    UBUNTU_MIRROR="us.archive.ubuntu.com/ubuntu"
+fi
 
 # Optionally use the changelog of a package to determine the suite to use if
 # none set.

@@ -53,7 +53,7 @@ customize_pbuilder_environment() {
 
 create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
+#	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
 		--architecture "$target_arch" \
 		--distribution "$target_distro" \
