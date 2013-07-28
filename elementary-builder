@@ -47,7 +47,6 @@ customize_pbuilder_environment() {
 	echo "Customizing pbuilder environment..."
 	pbuilder --execute --save-after-exec \
 		--basetgz "$current_basetgz" \
-		--configfile "$elementary_builder_pbuilderrc" \
 		"$chroot_script_file"
 }
 
