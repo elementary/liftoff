@@ -1,4 +1,4 @@
-BUILDPLACE=/var/cache/pbuilder/build/
+BUILDPLACE=/var/cache/elementary-builder/build/
 
 USEPROC=yes
 USEDEVPTS=yes
@@ -113,15 +113,15 @@ if [ -n "${ARCH}" ]; then
     NAME="$NAME-$ARCH"
     DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
 fi
-BASETGZ="/var/cache/pbuilder/$NAME-base.tgz"
+BASETGZ="/var/cache/elementary-builder/$NAME-base.tgz"
 # Optionally, set BASEPATH (and not BASETGZ) if using cowbuilder
-# BASEPATH="/var/cache/pbuilder/$NAME/base.cow/"
+# BASEPATH="/var/cache/elementary-builder/$NAME/base.cow/"
 
 DISTRIBUTION="$DIST"
 
-BUILDRESULT="/var/cache/pbuilder/$NAME/result/"
+BUILDRESULT="/var/cache/elementary-builder/$NAME/result/"
 
-APTCACHE="/var/cache/pbuilder/aptcache/$NAME/"
+APTCACHE="/var/cache/elementary-builder/aptcache/$NAME/"
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     # Debian configuration
@@ -146,9 +146,9 @@ else
 fi
 
 # ccache
-sudo mkdir -p /var/cache/pbuilder/ccache
-sudo chmod a+w /var/cache/pbuilder/ccache
-export CCACHE_DIR="/var/cache/pbuilder/ccache"
+sudo mkdir -p /var/cache/elementary-builder/ccache
+sudo chmod a+w /var/cache/elementary-builder/ccache
+export CCACHE_DIR="/var/cache/elementary-builder/ccache"
 export PATH="/usr/lib/ccache:${PATH}"
 EXTRAPACKAGES=ccache
 BINDMOUNTS="${CCACHE_DIR}"
