@@ -1,6 +1,5 @@
-
 BUILDPLACE=/var/cache/pbuilder/build/
-#OTHERMIRROR="deb file:///var/cache/pbuilder/repo ./"
+
 USEPROC=yes
 USEDEVPTS=yes
 USEDEVFS=no
@@ -16,34 +15,27 @@ DEBEMAIL="elementary Builds <builds@elementaryos.org>"
 BUILDSOURCEROOTCMD="fakeroot"
 PBUILDERROOTCMD="sudo -E"
 
-# command to satisfy build-dependencies; the default is an internal shell
-# implementation which is relatively slow; there are two alternate
-# implementations, the "experimental" implementation,
-# "pbuilder-satisfydepends-experimental", which might be useful to pull
-# packages from experimental or from repositories with a low APT Pin Priority,
-# and the "aptitude" implementation, which will resolve build-dependencies and
-# build-conflicts with aptitude which helps dealing with complex cases but does
-# not support unsigned APT repositories
 PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends"
 
-#Command-line option passed on to dpkg-buildpackage.
+# Command-line option passed on to dpkg-buildpackage.
 DEBBUILDOPTS=""
 
-#APT configuration files directory
+# APT configuration files directory
 APTCONFDIR=""
 
 # the username and ID used by pbuilder, inside chroot. Needs fakeroot, really
 BUILDUSERID=1234
 BUILDUSERNAME=pbuilder
 
+# OTHERMIRROR="deb file:///var/cache/pbuilder/repo ./"
 # BINDMOUNTS is a space separated list of things to mount
 # inside the chroot.
-#BINDMOUNTS="/var/cache/pbuilder/repo"
+# BINDMOUNTS="/var/cache/pbuilder/repo"
 
 # Set the debootstrap variant to 'buildd' type.
-# DEBOOTSTRAPOPTS[0]='--variant=buildd'
+DEBOOTSTRAPOPTS[0]='--variant=buildd'
 # or work around bug in debootstrap 3.0.0 (314858)
-unset DEBOOTSTRAPOPTS
+#unset DEBOOTSTRAPOPTS
 
 # Set the PATH I am going to use inside pbuilder: default is "/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
@@ -63,8 +55,8 @@ PKGNAME_LOGFILE=""
 # Fast gzip alternative
 COMPRESSPROG=pigz
 
-# Codenames for Debian suites according to their alias. Update these when
-# needed.
+# Codenames for Debian suites according to their alias.
+# Update these when needed.
 UNSTABLE_CODENAME="sid"
 TESTING_CODENAME="wheezy"
 STABLE_CODENAME="squeeze"
@@ -95,8 +87,8 @@ if [ -z "${DIST}" ] && [ -r "debian/changelog" ]; then
     fi
 fi
 
-# Optionally set a default distribution if none is used. Note that you can set
-# your own default (i.e. ${DIST:="unstable"}).
+# Optionally set a default distribution if none is used.
+# Note that you can set your own default (i.e. ${DIST:="unstable"}).
 : ${DIST:="$(lsb_release --short --codename)"}
 
 # Optionally change Debian release states in $DIST to their names.
@@ -112,8 +104,8 @@ case "$DIST" in
         ;;
 esac
 
-# Optionally set the architecture to the host architecture if none set. Note
-# that you can set your own default (i.e. ${ARCH:="i386"}).
+# Optionally set the architecture to the host architecture if none set.
+# Note that you can set your own default (i.e. ${ARCH:="i386"}).
 : ${ARCH:="$(dpkg --print-architecture)"}
 
 NAME="$DIST"
