@@ -9,11 +9,11 @@ USEDEVFS=no
 REMOVEPACKAGES="lilo"
 HOOKDIR="/usr/lib/pbuilder/hooks"
 
-# make debconf not interact with user
+# Make debconf not interact with user
 export DEBIAN_FRONTEND="noninteractive"
 DEBEMAIL="elementary Builds <builds@elementaryos.org>"
 
-# for pbuilder debuild (sudo -E keeps the environment as-is)
+# For pbuilder debuild (sudo -E keeps the environment as-is)
 BUILDSOURCEROOTCMD="fakeroot"
 PBUILDERROOTCMD="sudo -E"
 
@@ -37,7 +37,7 @@ BUILDUSERNAME=pbuilder
 # Set the debootstrap variant to 'buildd' type.
 DEBOOTSTRAPOPTS[0]='--variant=buildd'
 # or work around bug in debootstrap 3.0.0 (314858)
-#unset DEBOOTSTRAPOPTS
+# unset DEBOOTSTRAPOPTS
 
 # Set the PATH I am going to use inside pbuilder: default is "/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
@@ -48,10 +48,10 @@ export SHELL=/bin/bash
 # The name of debootstrap command.
 DEBOOTSTRAP="debootstrap"
 
-# default file extension for pkgname-logfile
+# Default file extension for pkgname-logfile
 PKGNAME_LOGFILE_EXTENTION="_$(dpkg --print-architecture).build"
 
-# default PKGNAME_LOGFILE
+# Default PKGNAME_LOGFILE
 PKGNAME_LOGFILE=""
 
 # Fast gzip alternative
@@ -130,17 +130,15 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
     COMPONENTS="main contrib non-free"
     # This is for enabling backports for the Debian stable suite.
-    #if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
+    # if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
     #    EXTRAPACKAGES="$EXTRAPACKAGES debian-backports-keyring"
     #    OTHERMIRROR="$OTHERMIRROR | deb http://www.backports.org/debian $STABLE_BACKPORTS_SUITE $COMPONENTS"
-    #fi
+    # fi
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
     # Ubuntu configuration
     MIRRORSITE="http://$UBUNTU_MIRROR"
     COMPONENTS="main restricted universe multiverse"
-# start cody vala ppa addition
 #   OTHERMIRROR="deb http://ppa.launchpad.net/vala-team/ppa/ubuntu $DIST main"
-# end cody vala ppa addition
 
 else
     echo "Unknown distribution: $DIST"

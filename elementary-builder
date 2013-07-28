@@ -25,7 +25,7 @@ distro_to_codename() {
 	else
 		target_codename="$target_distro"
 	fi
-	basetgz="/var/cache/elementary-builder"/"$target_codename"-"$target_arch"-base.tgz
+	current_basetgz="/var/cache/elementary-builder"/"$target_codename"-"$target_arch"-base.tgz
 }
 
 setup_chroot_script_file() {
@@ -46,7 +46,7 @@ customize_pbuilder_environment() {
 	setup_chroot_script_file
 	echo "Customizing pbuilder environment..."
 	pbuilder --execute --save-after-exec \
-		--basetgz "$basetgz" \
+		--basetgz "$current_basetgz" \
 		--configfile "$elementary_builder_pbuilderrc" \
 		"$chroot_script_file"
 }
@@ -64,7 +64,7 @@ create_pbuilder_environment() {
 update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
 	pbuilder --update \
-		--basetgz "$basetgz" \
+		--basetgz "$current_basetgz" \
 		--configfile "$elementary_builder_pbuilderrc"
 }
 
@@ -96,7 +96,7 @@ trap cleanup EXIT INT TERM
 distro_to_codename
 
 # Create environment if it doesn't exist otherwise just update it
-if ( ! [ -e "$basetgz" ] || [ $(stat --format=%s "$basetgz") -eq 0 ] ); then
+if ( ! [ -e "$current_basetgz" ] || [ $(stat --format=%s "$current_basetgz") -eq 0 ] ); then
 	create_pbuilder_environment
 	customize_pbuilder_environment
 else
