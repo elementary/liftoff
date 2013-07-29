@@ -8,19 +8,16 @@ target_arch="$2"
 
 # Load configuration
 . /etc/elementary-builder.conf
-if [ -r ~/elementary-builder.conf ]; then
-  . ~/elementary-builder.conf
-fi
 
 elementary_builder_pbuilderrc="/etc/elementary-builder-pbuilderrc"
 
 distro_to_codename() {
 	echo "Determining distribution codename..."
-	if [ $target_distro == "testing" ] ; then
+	if [ "$target_distro" == "testing" ] ; then
 		target_codename="$testing_codename"
-	elif [ $target_distro == "unstable" ] ; then
+	elif [ "$target_distro" == "unstable" ] ; then
 		target_codename="$unstable_codename"
-	elif [ $target_distro == "stable" ] ; then
+	elif [ "$target_distro" == "stable" ] ; then
 		target_codename="$stable_codename"
 	else
 		target_codename="$target_distro"
@@ -71,7 +68,7 @@ build_product() {
 	echo "Building..."
 	setup_log_output
 	build_result=$(mktemp -d)
-	pdebuild --architecture $target_arch \
+	pdebuild --architecture "$target_arch" \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
 		--logfile "$log_file" \
@@ -100,7 +97,7 @@ if ( ! [ -e "$current_basetgz" ] || [ $(stat --format=%s "$current_basetgz") -eq
 	customize_pbuilder_environment
 else
 	update_pbuilder_environment
-fi	
+fi
 
 build_product # Build
 
