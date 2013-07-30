@@ -59,7 +59,7 @@ create_pbuilder_environment() {
 
 update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
-	pbuilder --update \
+	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
 		--basetgz "$current_basetgz" \
 		--configfile "$elementary_builder_pbuilderrc"
 }
@@ -68,7 +68,7 @@ build_product() {
 	echo "Building..."
 	setup_log_output
 	build_result=$(mktemp -d)
-	pdebuild --architecture "$target_arch" \
+	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild --architecture "$target_arch" \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
 		--logfile "$log_file" \
