@@ -39,10 +39,12 @@ DEBOOTSTRAPOPTS[0]='--variant=buildd'
 # or work around bug in debootstrap 3.0.0 (314858)
 # unset DEBOOTSTRAPOPTS
 
-# Set the PATH I am going to use inside pbuilder: default is "/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
+# Set the PATH to use inside pbuilder:
+# default is "/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
 
-# SHELL variable is used inside pbuilder by commands like 'su'; and they need sane values
+# SHELL variable is used inside pbuilder by commands like 'su';
+# and they need sane values
 export SHELL=/bin/bash
 
 # The name of debootstrap command.
@@ -51,8 +53,9 @@ DEBOOTSTRAP="debootstrap"
 # Default file extension for pkgname-logfile
 PKGNAME_LOGFILE_EXTENTION="_$(dpkg --print-architecture).build"
 
-# Default PKGNAME_LOGFILE
-PKGNAME_LOGFILE=""
+# Always run with --pkgname-logfile option, and create
+# a logfile named after the package name.
+PKGNAME_LOGFILE="yes"
 
 # Fast gzip alternative
 COMPRESSPROG=pigz
@@ -79,8 +82,8 @@ else
     UBUNTU_MIRROR="us.archive.ubuntu.com/ubuntu"
 fi
 
-# Optionally use the changelog of a package to determine the suite to use if
-# none set.
+# Optionally use the changelog of a package to determine
+# the suite to use if none set.
 if [ -z "${DIST}" ] && [ -r "debian/changelog" ]; then
     DIST=$(dpkg-parsechangelog | awk '/^Distribution: / {print $2}')
     # Use the unstable suite for certain suite values.

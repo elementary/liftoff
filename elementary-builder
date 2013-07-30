@@ -43,7 +43,7 @@ customize_pbuilder_environment() {
 	setup_chroot_script_file
 	echo "Customizing pbuilder environment..."
 	pbuilder --execute --save-after-exec \
-		--basetgz "$current_basetgz" \
+#		--basetgz "$current_basetgz" \
 		"$chroot_script_file"
 }
 
@@ -51,8 +51,8 @@ create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 #	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
-		--architecture "$target_arch" \
-		--distribution "$target_distro" \
+#		--architecture "$target_arch" \
+#		--distribution "$target_distro" \
 		--configfile "$elementary_builder_pbuilderrc" \
 		--keyring /etc/apt/trusted.gpg --debootstrapopts --keyring=/etc/apt/trusted.gpg
 }
@@ -60,18 +60,18 @@ create_pbuilder_environment() {
 update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
-		--basetgz "$current_basetgz" \
+#		--basetgz "$current_basetgz" \
 		--configfile "$elementary_builder_pbuilderrc"
 }
 
 build_product() {
 	echo "Building..."
-	setup_log_output
+#	setup_log_output
 	build_result=$(mktemp -d)
 	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild --architecture "$target_arch" \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
-		--logfile "$log_file" \
+#		--logfile "$log_file" \
 		--configfile "$elementary_builder_pbuilderrc"
 }
 
