@@ -54,7 +54,8 @@ create_pbuilder_environment() {
 		--architecture "$target_arch" \
 		--distribution "$target_distro" \
 		--configfile "$elementary_builder_pbuilderrc" \
-		--keyring /etc/apt/trusted.gpg --debootstrapopts --keyring=/etc/apt/trusted.gpg
+		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
+		--debootstrapopts --keyring=/usr/share/keyrings/debian-archive-keyring.gpg
 }
 
 update_pbuilder_environment() {
