@@ -84,13 +84,13 @@ fi
 
 # Optionally use the changelog of a package to determine
 # the suite to use if none set.
-if [ -z "${DIST}" ] && [ -r "debian/changelog" ]; then
-    DIST=$(dpkg-parsechangelog | awk '/^Distribution: / {print $2}')
-    # Use the unstable suite for certain suite values.
-    if $(echo "experimental UNRELEASED" | grep -q $DIST); then
-        DIST="$UNSTABLE_CODENAME"
-    fi
-fi
+#if [ -z "${DIST}" ] && [ -r "debian/changelog" ]; then
+#    DIST=$(dpkg-parsechangelog | awk '/^Distribution: / {print $2}')
+#    # Use the unstable suite for certain suite values.
+#    if $(echo "experimental UNRELEASED" | grep -q $DIST); then
+#        DIST="$UNSTABLE_CODENAME"
+#    fi
+#fi
 
 # Optionally set a default distribution if none is used.
 # Note that you can set your own default (i.e. ${DIST:="unstable"}).

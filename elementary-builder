@@ -51,16 +51,18 @@ create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 #	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
-#		--architecture "$target_arch" \
-#		--distribution "$target_distro" \
+		--architecture "$target_arch" \
+		--distribution "$target_distro" \
 		--configfile "$elementary_builder_pbuilderrc" \
 		--keyring /etc/apt/trusted.gpg --debootstrapopts --keyring=/etc/apt/trusted.gpg
 }
 
 update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
-	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
+#	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
+	pbuilder --update \
 		--basetgz "$current_basetgz" \
+#		--configfile "$elementary_builder_pbuilderrc"
 }
 
 build_product() {
@@ -70,6 +72,7 @@ build_product() {
 	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild --architecture "$target_arch" \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
+		--configfile "$elementary_builder_pbuilderrc" \
 #		--logfile "$log_file" \
 }
 
