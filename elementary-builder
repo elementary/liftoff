@@ -43,7 +43,7 @@ customize_pbuilder_environment() {
 	setup_chroot_script_file
 	echo "Customizing pbuilder environment..."
 	pbuilder --execute --save-after-exec \
-#		--basetgz "$current_basetgz" \
+		--basetgz "$current_basetgz" \
 		"$chroot_script_file"
 }
 
@@ -60,8 +60,7 @@ create_pbuilder_environment() {
 update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
-#		--basetgz "$current_basetgz" \
-		--configfile "$elementary_builder_pbuilderrc"
+		--basetgz "$current_basetgz" \
 }
 
 build_product() {
@@ -72,7 +71,6 @@ build_product() {
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
 #		--logfile "$log_file" \
-		--configfile "$elementary_builder_pbuilderrc"
 }
 
 upload_product() {
@@ -80,10 +78,9 @@ upload_product() {
 }
 
 cleanup() {
-	rm -r "$build_result"
-	rm "$chroot_script_file"
-	gzip "$log_file"
-	find "$log_dir" -mtime +30 -type f -delete # Delete logs older than 30 days
+	sudo rm -r "$build_result" "$chroot_script_file"
+#	gzip "$log_file"
+#	find "$log_dir" -mtime +30 -type f -delete # Delete logs older than 30 days
 }
 
 trap cleanup EXIT INT TERM
