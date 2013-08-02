@@ -6,8 +6,8 @@ USEPROC=yes
 USEDEVPTS=yes
 USEDEVFS=no
 
+# Remove potentially dangerous or undesirable packages like lilo
 REMOVEPACKAGES="lilo"
-HOOKDIR="/usr/lib/pbuilder/hooks"
 
 # Make debconf not interact with user
 export DEBIAN_FRONTEND="noninteractive"
@@ -28,11 +28,6 @@ APTCONFDIR=""
 # the username and ID used by pbuilder, inside chroot. Needs fakeroot, really
 BUILDUSERID=1234
 BUILDUSERNAME=pbuilder
-
-# OTHERMIRROR="deb file:///var/cache/pbuilder/repo ./"
-# BINDMOUNTS is a space separated list of things to mount
-# inside the chroot.
-# BINDMOUNTS="/var/cache/pbuilder/repo"
 
 # Set the debootstrap variant to 'buildd' type.
 DEBOOTSTRAPOPTS[0]='--variant=buildd'
@@ -65,7 +60,6 @@ COMPRESSPROG=pigz
 UNSTABLE_CODENAME="sid"
 TESTING_CODENAME="wheezy"
 STABLE_CODENAME="squeeze"
-STABLE_BACKPORTS_SUITE="$STABLE_CODENAME-backports"
 
 # List of Debian suites.
 DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
@@ -82,20 +76,6 @@ else
     UBUNTU_MIRROR="us.archive.ubuntu.com/ubuntu"
 fi
 
-# Optionally use the changelog of a package to determine
-# the suite to use if none set.
-#if [ -z "${DIST}" ] && [ -r "debian/changelog" ]; then
-#    DIST=$(dpkg-parsechangelog | awk '/^Distribution: / {print $2}')
-#    # Use the unstable suite for certain suite values.
-#    if $(echo "experimental UNRELEASED" | grep -q $DIST); then
-#        DIST="$UNSTABLE_CODENAME"
-#    fi
-#fi
-
-# Optionally set a default distribution if none is used.
-# Note that you can set your own default (i.e. ${DIST:="unstable"}).
-: ${DIST:="$(lsb_release --short --codename)"}
-
 # Optionally change Debian release states in $DIST to their names.
 case "$DIST" in
     unstable)
@@ -108,10 +88,6 @@ case "$DIST" in
         DIST="$STABLE_CODENAME"
         ;;
 esac
-
-# Optionally set the architecture to the host architecture if none set.
-# Note that you can set your own default (i.e. ${ARCH:="i386"}).
-: ${ARCH:="$(dpkg --print-architecture)"}
 
 NAME="$DIST"
 if [ -n "${ARCH}" ]; then
@@ -132,16 +108,11 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     # Debian configuration
     MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
     COMPONENTS="main contrib non-free"
-    # This is for enabling backports for the Debian stable suite.
-    # if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
-    #    EXTRAPACKAGES="$EXTRAPACKAGES debian-backports-keyring"
-    #    OTHERMIRROR="$OTHERMIRROR | deb http://www.backports.org/debian $STABLE_BACKPORTS_SUITE $COMPONENTS"
-    # fi
+
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
     # Ubuntu configuration
     MIRRORSITE="http://$UBUNTU_MIRROR"
     COMPONENTS="main restricted universe multiverse"
-#   OTHERMIRROR="deb http://ppa.launchpad.net/vala-team/ppa/ubuntu $DIST main"
 
 else
     echo "Unknown distribution: $DIST"
