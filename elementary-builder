@@ -45,16 +45,19 @@ customize_pbuilder_environment() {
 	pbuilder --execute --save-after-exec \
 		--basetgz "$current_basetgz" \
 		"$chroot_script_file"
+	rm "$chroot_script_file"
 }
 
 create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
+	rm $current_basetgz # in case it's zero-size file leftover from a failed build
 #	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
 		--architecture "$target_arch" \
 		--distribution "$target_distro" \
 		--configfile "$elementary_builder_pbuilderrc" \
 		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
+		# workaround verification error in debian builds
 		--debootstrapopts --keyring=/usr/share/keyrings/debian-archive-keyring.gpg
 }
 
@@ -63,6 +66,7 @@ update_pbuilder_environment() {
 #	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
 	pbuilder --update \
 		--basetgz "$current_basetgz" \
+		--override-config
 #		--configfile "$elementary_builder_pbuilderrc"
 }
 
