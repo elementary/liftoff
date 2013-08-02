@@ -1,4 +1,4 @@
 elementary-builder usr/bin
 elementary-builder-loop usr/bin
-elementary-builder-pbuilderrc etc
-elementary-builder.conf etc
+elementary-builder-pbuilderrc etc/elementary-builder
+elementary-builder.conf etc/elementary-builder

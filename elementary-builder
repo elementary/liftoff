@@ -7,7 +7,7 @@ target_distro="$1"
 target_arch="$2"
 
 # Load configuration
-. /etc/elementary-builder.conf
+. /etc/elementary-builder/elementary-builder.conf
 
 elementary_builder_pbuilderrc="/etc/elementary-builder-pbuilderrc"
 
