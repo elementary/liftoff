@@ -57,8 +57,8 @@ create_pbuilder_environment() {
 		--distribution "$target_distro" \
 		--configfile "$elementary_builder_pbuilderrc" \
 		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
-		# workaround verification error in debian builds
 		--debootstrapopts --keyring=/usr/share/keyrings/debian-archive-keyring.gpg
+		# above is workaround for verification error in debian builds, depends on debian-archive-key package
 }
 
 update_pbuilder_environment() {
