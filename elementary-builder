@@ -77,7 +77,7 @@ build_product() {
 	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild --architecture "$target_arch" \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
-		--configfile "$elementary_builder_pbuilderrc" \
+		--configfile "$elementary_builder_pbuilderrc"
 #		--logfile "$log_file" \
 }
 
@@ -106,6 +106,7 @@ fi
 
 build_product # Build
 
-upload_product # Upload
+#upload_product # Upload
+echo "This is where we would upload packages. IF WE HAD ANY!"
 
 echo "Finished."
