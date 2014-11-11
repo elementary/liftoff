@@ -66,14 +66,14 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
     "unstable" "testing" "stable")
 
 # List of Ubuntu suites. Update these when needed.
-UBUNTU_SUITES=("precise" "raring" "saucy")
+UBUNTU_SUITES=("precise" "trusty")
 
 # Mirrors
 DEBIAN_MIRROR="ftp.us.debian.org"
 if [ $(dpkg --print-architecture) == "armhf" ]; then
     UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
 else
-    UBUNTU_MIRROR="us.archive.ubuntu.com/ubuntu"
+    UBUNTU_MIRROR="http://mirrors.advancedhosters.com/ubuntu"
 fi
 
 # Optionally change Debian release states in $DIST to their names.
