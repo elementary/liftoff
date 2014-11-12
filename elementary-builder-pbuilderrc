@@ -73,7 +73,7 @@ DEBIAN_MIRROR="ftp.us.debian.org"
 if [ $(dpkg --print-architecture) == "armhf" ]; then
     UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
 else
-    UBUNTU_MIRROR="http://mirrors.advancedhosters.com/ubuntu"
+    UBUNTU_MIRROR="mirrors.advancedhosters.com/ubuntu"
 fi
 
 # Optionally change Debian release states in $DIST to their names.
