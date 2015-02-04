@@ -43,7 +43,11 @@ export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin"
 export SHELL=/bin/bash
 
 # The name of debootstrap command.
-DEBOOTSTRAP="debootstrap"
+if [ "$ARCH" = "armhf" ] ; then
+	DEBOOTSTRAP="/usr/sbin/qemu-debootstrap"
+else
+	DEBOOTSTRAP="debootstrap"
+fi
 
 # Default file extension for pkgname-logfile
 PKGNAME_LOGFILE_EXTENTION="_$(dpkg --print-architecture).build"
@@ -70,7 +74,7 @@ UBUNTU_SUITES=("precise" "trusty")
 
 # Mirrors
 DEBIAN_MIRROR="ftp.us.debian.org"
-if [ $(dpkg --print-architecture) == "armhf" ]; then
+if [ "$ARCH" == "armhf" ]; then
     UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
 else
     UBUNTU_MIRROR="mirrors.advancedhosters.com/ubuntu"
