@@ -13,10 +13,12 @@ Depends: bzr,
          ccache,
          debhelper,
          debian-archive-keyring,
+         debian-keyring,
          gobject-introspection,
          pbuilder,
          pigz,
          quilt,
+         ubuntu-keyring
          ${misc:Depends}
 Description: automated build system for elementary
  A wrapper for pbuilder that automatically builds and uploads elementary packages.
