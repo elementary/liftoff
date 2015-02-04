@@ -2,3 +2,4 @@ elementary-builder usr/bin
 elementary-builder-loop usr/bin
 elementary-builder-pbuilderrc etc/elementary-builder
 elementary-builder.conf etc/elementary-builder
+recipe2source usr/bin
