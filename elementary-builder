@@ -53,15 +53,26 @@ create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 	#rm $current_basetgz # in case it's zero-size file leftover from a failed build
 #	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
-	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
-		--architecture "$target_arch" \
-		--distribution "$target_distro" \
-		--configfile "$elementary_builder_pbuilderrc" \
-		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
-		--debootstrapopts --keyring=/usr/share/keyrings/debian-archive-keyring.gpg \
-		--debootstrapopts --keyring=/usr/share/keyrings/ubuntu-master-keyring.gpg \
-		--debootstrapopts --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg
-		# above is workaround for verification error in debian builds, depends on debian-archive-key package
+	if [ "aptcacherng_server" != "" ] ; then
+		sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
+			--architecture "$target_arch" \
+			--distribution "$target_distro" \
+			--configfile "$elementary_builder_pbuilderrc" \
+			--debootstrapopts --keyring=/etc/apt/trusted.gpg \
+			--debootstrapopts --keyring=/usr/share/keyrings/debian-archive-keyring.gpg \
+			--debootstrapopts --keyring=/usr/share/keyrings/ubuntu-master-keyring.gpg \
+			--debootstrapopts --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg \
+			--http-proxy "$aptcacherng_server"
+	else
+		sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
+			--architecture "$target_arch" \
+			--distribution "$target_distro" \
+			--configfile "$elementary_builder_pbuilderrc" \
+			--debootstrapopts --keyring=/etc/apt/trusted.gpg \
+			--debootstrapopts --keyring=/usr/share/keyrings/debian-archive-keyring.gpg \
+			--debootstrapopts --keyring=/usr/share/keyrings/ubuntu-master-keyring.gpg \
+			--debootstrapopts --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg
+	fi
 }
 
 update_pbuilder_environment() {
