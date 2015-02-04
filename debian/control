@@ -18,6 +18,7 @@ Depends: bzr,
          libgirepository1.0-dev,
          pbuilder,
          pigz,
+         qemu-user-static,
          quilt,
          ubuntu-keyring,
          valac
