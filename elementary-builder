@@ -53,7 +53,7 @@ create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 	#rm $current_basetgz # in case it's zero-size file leftover from a failed build
 #	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7DAAC99C
-	if [ "aptcacherng_server" != "" ] ; then
+	if [ "$aptcacherng_server" != "" ] ; then
 		sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
 			--architecture "$target_arch" \
 			--distribution "$target_distro" \
