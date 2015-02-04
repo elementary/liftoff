@@ -15,10 +15,12 @@ Depends: bzr,
          debian-archive-keyring,
          debian-keyring,
          gobject-introspection,
+         libgirepository1.0-dev,
          pbuilder,
          pigz,
          quilt,
-         ubuntu-keyring
+         ubuntu-keyring,
+         valac
          ${misc:Depends}
 Description: automated build system for elementary
  A wrapper for pbuilder that automatically builds and uploads elementary packages.
