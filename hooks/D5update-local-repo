@@ -1,0 +1,10 @@
+# Update the local repo
+
+# Path to the local repo
+LOCAL_REPO="/home/cody/freight-repo"
+
+# Generate a Packages file
+(cd $LOCAL_REPO ; apt-ftparchive packages . > Packages)
+
+# Update to include any new packages in the local repo
+apt-get update
