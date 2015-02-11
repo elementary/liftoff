@@ -79,11 +79,9 @@ create_pbuilder_environment() {
 
 update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
-#	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
-	pbuilder --update \
-		--basetgz "$current_basetgz" \
+	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
+		--configfile "$elementary_builder_pbuilderrc" \
 		--override-config
-#		--configfile "$elementary_builder_pbuilderrc"
 }
 
 build_product() {
