@@ -1,8 +1,5 @@
 #!/bin/bash
 # Usage: recipe2source foo.recipe working-dir
 
-# Gotta delete destination or there could be conflicts
-rm -rf "$2"
-
 # Convert recipe to source code
 bzr dailydeb "$1" "$2" --allow-fallback-to-native
