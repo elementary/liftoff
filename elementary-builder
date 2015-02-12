@@ -10,7 +10,7 @@ target_arch="$2"
 # Load configuration
 . /etc/elementary-builder/elementary-builder.conf
 
-elementary_builder_pbuilderrc="/etc/elementary-builder/elementary-builder-pbuilderrc"
+pbuilderrc="/etc/elementary-builder/pbuilderrc"
 
 distro_to_codename() {
 	echo "Determining distribution codename..."
@@ -42,14 +42,14 @@ create_pbuilder_environment() {
 		sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
 			--architecture "$target_arch" \
 			--distribution "$target_distro" \
-			--configfile "$elementary_builder_pbuilderrc" \
+			--configfile "$pbuilderrc" \
 			--debootstrapopts --keyring=/etc/apt/trusted.gpg \
 			--http-proxy "$aptcacherng_server"
 	else
 		sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
 			--architecture "$target_arch" \
 			--distribution "$target_distro" \
-			--configfile "$elementary_builder_pbuilderrc" \
+			--configfile "$pbuilderrc" \
 			--debootstrapopts --keyring=/etc/apt/trusted.gpg
 	fi
 }
@@ -57,7 +57,7 @@ create_pbuilder_environment() {
 update_pbuilder_environment() {
 	echo "Updating pbuilder environment..."
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
-		--configfile "$elementary_builder_pbuilderrc" \
+		--configfile "$pbuilderrc" \
 		--override-config
 }
 
@@ -68,7 +68,7 @@ build_product() {
 	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild --architecture "$target_arch" \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
-		--configfile "$elementary_builder_pbuilderrc"
+		--configfile "$pbuilderrc"
 #		--logfile "$log_file" \
 }
 
