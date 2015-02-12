@@ -27,27 +27,11 @@ distro_to_codename() {
 	echo "Codename: "$target_codename""
 }
 
-setup_chroot_script_file() {
-	echo "Setting up script for chroot..."
-	chroot_script_file=$(mktemp)
-	# Speed things up
-	echo 'echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup' > "$chroot_script_file"
-}
-
 setup_log_output() {
 	echo "Setting up log output..."
 	mkdir -p "$log_dir"
 	timestamp=$(date +%Y-%m-%d-%H:%M:%S)
 	log_file="$log_dir"/"$timestamp"-"$target_codename"-"$target_arch".log
-}
-
-customize_pbuilder_environment() {
-	setup_chroot_script_file
-	echo "Customizing pbuilder environment..."
-	pbuilder --execute --save-after-exec \
-		--basetgz "$current_basetgz" \
-		"$chroot_script_file"
-	rm "$chroot_script_file"
 }
 
 create_pbuilder_environment() {
@@ -107,7 +91,6 @@ distro_to_codename
 # Create environment if it doesn't exist otherwise just update it
 if ( ! [ -e "$current_basetgz" ] || [ $(stat --format=%s "$current_basetgz") -eq 0 ] ); then
 	create_pbuilder_environment
-	customize_pbuilder_environment
 else
 	update_pbuilder_environment
 fi
