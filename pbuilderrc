@@ -129,7 +129,7 @@ FREIGHTMOUNTS="/home/cody/freight-repo"
 
 OSPATCHESPPA="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
 
-if ["$DIST" = "trusty"] ; then
+if [ "$DIST" = "trusty" ] ; then
         OTHERMIRROR="$FREIGHTREPO|$OSPATCHESPPA"
 else
         OTHERMIRROR="$FREIGHTREPO"
