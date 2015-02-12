@@ -127,4 +127,4 @@ fi
 OTHERMIRROR="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
 HOOKDIR="/etc/elementary-builder/hooks"
 BINDMOUNTS="/home/cody/freight-repo"
-EXTRAPACKAGES="apt-utils"
+EXTRAPACKAGES="apt-utils intltool"
