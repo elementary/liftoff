@@ -1,7 +1,7 @@
 elementary-builder usr/bin
 elementary-builder-loop usr/bin
 pbuilderrc etc/elementary-builder
-elementary-builder.conf etc/elementary-builder
+builder.conf etc/elementary-builder
 recipe2source usr/bin
 recipe-loop usr/bin
 hooks/* etc/elementary-builder/hooks
