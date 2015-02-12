@@ -3,5 +3,6 @@ elementary-builder-loop usr/bin
 elementary-builder-pbuilderrc etc/elementary-builder
 elementary-builder.conf etc/elementary-builder
 recipe2source usr/bin
+recipe-loop usr/bin
 hooks/* etc/elementary-builder/hooks
 recipes/* etc/elementary-builder/recipes
