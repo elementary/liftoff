@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Target distribution
 target_distro="$1"
