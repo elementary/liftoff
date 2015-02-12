@@ -124,7 +124,18 @@ else
 fi
 
 # Local repository
-OTHERMIRROR="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
+FREIGHTREPO="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
+FREIGHTMOUNTS="/home/cody/freight-repo"
+
+OSPATCHESPPA="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
+
+if ["$DIST" = "trusty"] ; then
+        OTHERMIRROR="$FREIGHTREPO|$OSPATCHESPPA"
+else
+        OTHERMIRROR="$FREIGHTREPO"
+fi
+
 HOOKDIR="/etc/elementary-builder/hooks"
-BINDMOUNTS="/home/cody/freight-repo"
+BINDMOUNTS="$FREIGHTMOUNTS"
+
 EXTRAPACKAGES="apt-utils intltool"
