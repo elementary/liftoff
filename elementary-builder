@@ -31,7 +31,7 @@ setup_log_output() {
 	echo "Setting up log output..."
 	mkdir -p "$log_dir"
 	timestamp=$(date +%Y-%m-%d-%H:%M:%S)
-	log_file="$log_dir"/"$timestamp"-"$target_codename"-"$target_arch".log
+	log_file="$log_dir/$timestamp-$target_codename-$target_arch.log"
 }
 
 create_pbuilder_environment() {
@@ -63,13 +63,13 @@ update_pbuilder_environment() {
 
 build_product() {
 	echo "Building..."
-#	setup_log_output
+	setup_log_output
 	build_result=$(mktemp -d)
 	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild --architecture "$target_arch" \
 		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
 		--buildresult "$build_result" \
-		--configfile "$pbuilderrc"
-#		--logfile "$log_file" \
+		--configfile "$pbuilderrc" \
+		--logfile "$log_file"
 }
 
 upload_product() {
@@ -77,8 +77,8 @@ upload_product() {
 }
 
 cleanup() {
-    echo "Cleaning up..."
-	sudo rm -rf "$build_result" "$chroot_script_file"
+    echo "Cleaning up... (not really)"
+#	sudo rm -rf "$build_result" "$chroot_script_file"
 #	gzip "$log_file"
 #	find "$log_dir" -mtime +30 -type f -delete # Delete logs older than 30 days
 }
