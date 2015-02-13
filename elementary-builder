@@ -25,8 +25,8 @@ distro_to_codename() {
 	else
 		target_codename="$target_distro"
 	fi
-	current_basetgz="/var/cache/elementary-builder"/"$target_codename"-"$target_arch"-base.tgz
-	echo "Codename: "$target_codename""
+	current_basetgz="/var/cache/elementary-builder/$target_codename-$target_arch-base.tgz"
+	echo "Codename: $target_codename"
 }
 
 setup_log_output() {
