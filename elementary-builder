@@ -46,13 +46,6 @@ create_pbuilder_environment() {
 		--http-proxy "$aptcacherng_server"
 }
 
-update_pbuilder_environment() {
-	echo "Updating pbuilder environment..."
-	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --update \
-		--configfile "$pbuilderrc" \
-		--override-config
-}
-
 build_product() {
 	echo "Building..."
 	setup_log_output
@@ -80,11 +73,9 @@ trap cleanup EXIT INT TERM
 # Convert target_distro to target_codename
 distro_to_codename
 
-# Create environment if it doesn't exist otherwise just update it
+# Create environment if it doesn't exist
 if ( ! [ -e "$current_basetgz" ] || [ $(stat --format=%s "$current_basetgz") -eq 0 ] ); then
 	create_pbuilder_environment
-else
-	update_pbuilder_environment
 fi
 
 build_product # Build
