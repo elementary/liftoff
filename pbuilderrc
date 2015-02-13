@@ -104,7 +104,7 @@ BASETGZ=""$CACHEDIR"/$NAME-base.tgz"
 
 DISTRIBUTION="$DIST"
 
-BUILDRESULT=""$CACHEDIR"/$NAME/result/"
+#BUILDRESULT=""$CACHEDIR"/$NAME/result/"
 
 APTCACHE=""$CACHEDIR"/aptcache/$NAME/"
 
@@ -124,11 +124,11 @@ else
 fi
 
 # ccache
-sudo mkdir -p /var/cache/pbuilder/ccache
-sudo chmod a+w /var/cache/pbuilder/ccache
-sudo chown 1234.1234 /var/cache/pbuilder/ccache/
-export CCACHE_DIR="/var/cache/pbuilder/ccache"
-export PATH="/usr/lib/ccache:${PATH}"
+#sudo mkdir -p /var/cache/pbuilder/ccache
+#sudo chmod a+w /var/cache/pbuilder/ccache
+#sudo chown 1234.1234 /var/cache/pbuilder/ccache/
+#export CCACHE_DIR="/var/cache/pbuilder/ccache"
+#export PATH="/usr/lib/ccache:${PATH}"
 
 # Local repository
 FREIGHTREPO="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
@@ -144,6 +144,7 @@ fi
 
 HOOKDIR="/etc/elementary-builder/hooks"
 
-BINDMOUNTS="$FREIGHTMOUNTS ${CCACHE_DIR}"
+#BINDMOUNTS="$FREIGHTMOUNTS ${CCACHE_DIR}"
+BINDMOUNTS="$FREIGHTMOUNTS"
 
 EXTRAPACKAGES="apt-utils intltool"
