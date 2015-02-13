@@ -123,6 +123,13 @@ else
     exit 1
 fi
 
+# ccache
+sudo mkdir -p /var/cache/pbuilder/ccache
+sudo chmod a+w /var/cache/pbuilder/ccache
+sudo chown 1234.1234 /var/cache/pbuilder/ccache/
+export CCACHE_DIR="/var/cache/pbuilder/ccache"
+export PATH="/usr/lib/ccache:${PATH}"
+
 # Local repository
 FREIGHTREPO="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
 FREIGHTMOUNTS="/home/cody/freight-repo"
@@ -136,6 +143,7 @@ else
 fi
 
 HOOKDIR="/etc/elementary-builder/hooks"
-BINDMOUNTS="$FREIGHTMOUNTS"
+
+BINDMOUNTS="$FREIGHTMOUNTS ${CCACHE_DIR}"
 
 EXTRAPACKAGES="apt-utils intltool"

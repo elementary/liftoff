@@ -1,0 +1,2 @@
+# Install ccache now because adding it to EXTRAPACKAGES fails with --force-yes complaint
+apt-get install -y --force-yes ccache
