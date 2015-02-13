@@ -38,20 +38,12 @@ create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 	#rm $current_basetgz # in case it's zero-size file leftover from a failed build
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ${keylist[@]}
-	if [ "$aptcacherng_server" != "" ] ; then
-		sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
-			--architecture "$target_arch" \
-			--distribution "$target_distro" \
-			--configfile "$pbuilderrc" \
-			--debootstrapopts --keyring=/etc/apt/trusted.gpg \
-			--http-proxy "$aptcacherng_server"
-	else
-		sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
-			--architecture "$target_arch" \
-			--distribution "$target_distro" \
-			--configfile "$pbuilderrc" \
-			--debootstrapopts --keyring=/etc/apt/trusted.gpg
-	fi
+	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
+		--architecture "$target_arch" \
+		--distribution "$target_distro" \
+		--configfile "$pbuilderrc" \
+		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
+		--http-proxy "$aptcacherng_server"
 }
 
 update_pbuilder_environment() {
