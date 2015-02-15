@@ -25,6 +25,8 @@ DEBBUILDOPTS=""
 # APT configuration files directory
 APTCONFDIR=""
 
+BINDMOUNTS=""
+
 # the username and ID used by pbuilder, inside chroot. Needs fakeroot, really
 BUILDUSERID=1234
 BUILDUSERNAME=pbuilder
@@ -72,6 +74,10 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
 # List of Ubuntu suites. Update these when needed.
 UBUNTU_SUITES=("precise" "trusty")
 
+# Extra Ubuntu repositories
+UBUNTU_SECURITY="deb http://archive.ubuntu.com/ubuntu $DIST-updates main"
+UBUNTU_UPDATES="deb http://archive.ubuntu.com/ubuntu $DIST-security main"
+
 # Mirrors
 DEBIAN_MIRROR="ftp.us.debian.org"
 if [ "${ARCH}" == "armhf" ]; then
@@ -112,16 +118,21 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     # Debian configuration
     MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
     COMPONENTS="main contrib non-free"
+    OTHERMIRROR=""
 
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
     # Ubuntu configuration
     MIRRORSITE="http://$UBUNTU_MIRROR"
     COMPONENTS="main restricted universe multiverse"
+    OTHERMIRROR="$UBUNTU_SECURITY|$UBUNTU_UPDATES"
 
 else
     echo "Unknown distribution: $DIST"
     exit 1
 fi
+
+EXTRAPACKAGES="apt-utils intltool"
+HOOKDIR="/etc/elementary-builder/hooks"
 
 # ccache
 #sudo mkdir -p /var/cache/pbuilder/ccache
@@ -129,22 +140,20 @@ fi
 #sudo chown 1234.1234 /var/cache/pbuilder/ccache/
 #export CCACHE_DIR="/var/cache/pbuilder/ccache"
 #export PATH="/usr/lib/ccache:${PATH}"
+#BINDMOUNTS="$BINDMOUNTS ${CCACHE_DIR}"
 
 # Local repository
-FREIGHTREPO="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
+FREIGHT_REPO="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
 FREIGHTMOUNTS="/home/cody/freight-repo"
+ENABLE_FREIGHT=true
 
-OSPATCHESPPA="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
+OS_PATCHES="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
 
-if [ "$DIST" = "trusty" ] ; then
-        OTHERMIRROR="$FREIGHTREPO|$OSPATCHESPPA"
-else
-        OTHERMIRROR="$FREIGHTREPO"
+if [ "$ENABLE_FREIGHT" == "true" ] ;  then
+    OTHERMIRROR="$OTHERMIRROR|$FREIGHT_REPO"
+    BINDMOUNTS="$BINDMOUNTS $FREIGHTMOUNTS"
 fi
 
-HOOKDIR="/etc/elementary-builder/hooks"
-
-#BINDMOUNTS="$FREIGHTMOUNTS ${CCACHE_DIR}"
-BINDMOUNTS="$FREIGHTMOUNTS"
-
-EXTRAPACKAGES="apt-utils intltool"
+if [ "$DIST" == "trusty" ] ; then
+    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES"
+fi
