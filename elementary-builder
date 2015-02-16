@@ -40,27 +40,31 @@ setup_log_output() {
 create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 	#rm $current_basetgz # in case it's zero-size file leftover from a failed build
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ${keylist[@]}
-	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder --create \
-		--architecture "$target_arch" \
-		--distribution "$target_distro" \
+	sudo apt-key adv \
+		--keyserver keyserver.ubuntu.com \
+		--recv-keys ${keylist[@]}
+	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder \
+		--create \
 		--configfile "$pbuilderrc" \
 		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
-		--http-proxy "$aptcacherng_server"
+		--http-proxy "$aptcacherng_server" \
+		--architecture "$target_arch" \
+		--distribution "$target_distro"
 }
 
 build_product() {
 	echo "Building..."
 	setup_log_output
-	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild --architecture "$target_arch" \
-		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch" \
+	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild \
 		--buildresult "$build_result" \
 		--configfile "$pbuilderrc" \
-		--logfile "$log_file"
+		--logfile "$log_file" \
+		--architecture "$target_arch" \
+		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch"
 }
 
 upload_product() {
-	echo "Uploading... ($builds_result/*)"
+	echo "Uploading..."
 	#freight-add -c /etc/freight.conf "$build_result"/*.deb apt/"$target_codename"
 	#freight-add -c /etc/freight.conf "$build_result"/*.dsc "$build_result"/*.tar.gz apt/"$target_codename"
 	#freight-cache -c /etc/freight.conf
@@ -68,7 +72,7 @@ upload_product() {
 }
 
 cleanup() {
-    echo "Cleaning up..."
+	echo "Cleaning up..."
 	sudo rm -rf "$build_result"
 #	gzip "$log_file"
 #	find "$log_dir" -mtime +30 -type f -delete # Delete logs older than 30 days
