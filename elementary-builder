@@ -60,10 +60,11 @@ build_product() {
 }
 
 upload_product() {
-	echo "Uploading..."
-	freight-add -c /etc/freight.conf "$build_result"/*.deb apt/"$target_codename"
-	freight-add -c /etc/freight.conf "$build_result"/*.dsc "$build_result"/*.tar.gz apt/"$target_codename"
-	freight-cache -c /etc/freight.conf
+	echo "Uploading... ($builds_result/*)"
+	#freight-add -c /etc/freight.conf "$build_result"/*.deb apt/"$target_codename"
+	#freight-add -c /etc/freight.conf "$build_result"/*.dsc "$build_result"/*.tar.gz apt/"$target_codename"
+	#freight-cache -c /etc/freight.conf
+	scp "$build_result"/* "$remote_user@$remote_server:$remote_repo_root/$target_codename"
 }
 
 cleanup() {
