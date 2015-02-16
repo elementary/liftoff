@@ -47,9 +47,7 @@ create_pbuilder_environment() {
 		--create \
 		--configfile "$pbuilderrc" \
 		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
-		--http-proxy "$aptcacherng_server" \
-		--architecture "$target_arch" \
-		--distribution "$target_distro"
+		--http-proxy "$aptcacherng_server"
 }
 
 build_product() {
@@ -58,9 +56,7 @@ build_product() {
 	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild \
 		--buildresult "$build_result" \
 		--configfile "$pbuilderrc" \
-		--logfile "$log_file" \
-		--architecture "$target_arch" \
-		--pbuilderroot "sudo DIST=$target_distro ARCH=$target_arch"
+		--logfile "$log_file"
 }
 
 upload_product() {
