@@ -107,15 +107,15 @@ if [ -n "${ARCH}" ]; then
     NAME="$NAME-$ARCH"
     DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
 fi
-BASETGZ=""$CACHEDIR"/$NAME-base.tgz"
+BASETGZ="$CACHEDIR/$NAME-base.tgz"
 # Optionally, set BASEPATH (and not BASETGZ) if using cowbuilder
-# BASEPATH=""$CACHEDIR"/$NAME/base.cow/"
+# BASEPATH="$CACHEDIR/$NAME/base.cow/"
 
 DISTRIBUTION="$DIST"
 
 #BUILDRESULT=""$CACHEDIR"/$NAME/result/"
 
-APTCACHE=""$CACHEDIR"/aptcache/$NAME/"
+APTCACHE="$CACHEDIR/aptcache/$NAME/"
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     # Debian configuration
@@ -139,7 +139,7 @@ fi
 # ccache
 ENABLE_CCACHE=true
 
-if [ "ENABLE_CCACHE" = "true" ] ; then
+if [ "$ENABLE_CCACHE" = "true" ] ; then
     export CCACHE_DIR="/var/cache/pbuilder/ccache"
     export PATH="/usr/lib/ccache:${PATH}"
     sudo mkdir -p "$CCACHE_DIR"

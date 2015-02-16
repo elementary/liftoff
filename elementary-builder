@@ -40,26 +40,26 @@ setup_log_output() {
 create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 	#rm $current_basetgz # in case it's zero-size file leftover from a failed build
-	sudo apt-key adv \
+	apt-key adv \
 		--keyserver keyserver.ubuntu.com \
 		--recv-keys "${keylist[@]}"
-	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder \
+	DIST="$target_distro" ARCH="$target_arch" pbuilder \
 		--create \
 		--configfile "$pbuilderrc" \
 		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
 		--http-proxy "$aptcacherng_server"
 }
 
-build_product() {
+build_package() {
 	echo "Building..."
 	setup_log_output
-	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild \
+	DIST="$target_distro" ARCH="$target_arch" pdebuild \
 		--buildresult "$build_dir" \
 		--configfile "$pbuilderrc" \
 		--logfile "$log_file"
 }
 
-upload_product() {
+upload_package() {
 	echo "Uploading..."
 	#freight-add -c /etc/freight.conf "$build_dir"/*.deb apt/"$target_codename"
 	#freight-add -c /etc/freight.conf "$build_dir"/*.dsc "$build_dir"/*.tar.gz apt/"$target_codename"
@@ -69,7 +69,7 @@ upload_product() {
 
 cleanup() {
 	echo "Cleaning up..."
-	sudo rm -rf "$build_dir"
+	rm -rf "$build_dir"
 }
 
 trap cleanup EXIT INT TERM
@@ -78,12 +78,12 @@ trap cleanup EXIT INT TERM
 distro_to_codename
 
 # Create environment if it doesn't exist
-if ( ! [ -e "$current_basetgz" ] || [ $(stat --format=%s "$current_basetgz") -eq 0 ] ); then
+if ( ! [ -e "$current_basetgz" ] || [ "$(stat --format=%s "$current_basetgz")" -eq 0 ] ); then
 	create_pbuilder_environment
 fi
 
-build_product # Build
+build_package # Build
 
-upload_product # Upload
+upload_package # Upload
 
 echo "Finished."
