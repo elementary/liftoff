@@ -8,7 +8,7 @@ USEPROC=yes
 USEDEVPTS=yes
 USEDEVFS=no
 
-EXTRAPACKAGES="apt-utils intltools"
+EXTRAPACKAGES="apt-utils intltool"
 
 # Remove potentially dangerous or undesirable packages like lilo
 REMOVEPACKAGES="lilo"
