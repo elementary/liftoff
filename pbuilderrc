@@ -1,4 +1,3 @@
-
 HOOKDIR="/etc/elementary-builder/hooks"
 CACHEDIR="/var/cache/elementary-builder"
 
@@ -139,6 +138,7 @@ fi
 
 # ccache
 ENABLE_CCACHE=true
+
 if [ "ENABLE_CCACHE" = "true" ] ; then
     export CCACHE_DIR="/var/cache/pbuilder/ccache"
     export PATH="/usr/lib/ccache:${PATH}"
@@ -148,21 +148,29 @@ if [ "ENABLE_CCACHE" = "true" ] ; then
     BINDMOUNTS="$BINDMOUNTS ${CCACHE_DIR}"
 fi
 
-# Local repository
-FREIGHT_REPO="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
-FREIGHTMOUNTS="/home/cody/freight-repo"
-ENABLE_FREIGHT=false
+# Internal repository
+INTERNAL_REPO="deb [trusted=yes] file:///home/cody/freight-repo $DIST main"
+INTERNAL_REPO_MOUNTS="/home/cody/freight-repo"
+ENABLE_INTERNAL_REPO=false
 
-OS_PATCHES="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
-
-if [ "$ENABLE_FREIGHT" == "true" ] ;  then
-    OTHERMIRROR="$OTHERMIRROR|$FREIGHT_REPO"
-    BINDMOUNTS="$BINDMOUNTS $FREIGHTMOUNTS"
+if [ "$ENABLE_INTERNAL_REPO" == "true" ] ;  then
+    OTHERMIRROR="$OTHERMIRROR|$INTERNAL_REPO"
+    BINDMOUNTS="$BINDMOUNTS $INTERNAL_REPO_MOUNTS"
 fi
+
+# External repository
+EXTERNAL_REPO="deb [trusted=yes] http://192.168.1.114 $DIST main"
+OTHERMIRROR="$OTHERMIRROR|$EXTERNAL_REPO"
+ENABLE_INTERNAL_REPO=true
+
+if [ "$ENABLE_EXTERNAL_REPO" == "true" ] ;  then
+    OTHERMIRROR="$OTHERMIRROR|$EXTERNAL_REPO"
+    BINDMOUNTS="$BINDMOUNTS $EXTERNAL_REPO_MOUNTS"
+fi
+
+# ppa:elementary-os/os-patches
+OS_PATCHES="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
 
 if [ "$DIST" == "trusty" ] ; then
     OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES"
 fi
-
-FREIGHTD="deb [trusted=yes] http://192.168.1.114 $DIST main"
-OTHERMIRROR="$OTHERMIRROR|$FREIGHTD"
