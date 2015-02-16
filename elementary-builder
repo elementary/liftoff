@@ -12,7 +12,7 @@ source /etc/elementary-builder/builder.conf
 
 pbuilderrc="/etc/elementary-builder/pbuilderrc"
 
-build_result=$(mktemp -d elementary-builder-result.XXXXXX)
+build_dir=$(mktemp -d build-result.XXX)
 
 distro_to_codename() {
 	echo "Determining distribution codename..."
@@ -42,7 +42,7 @@ create_pbuilder_environment() {
 	#rm $current_basetgz # in case it's zero-size file leftover from a failed build
 	sudo apt-key adv \
 		--keyserver keyserver.ubuntu.com \
-		--recv-keys ${keylist[@]}
+		--recv-keys "${keylist[@]}"
 	sudo DIST="$target_distro" ARCH="$target_arch" pbuilder \
 		--create \
 		--configfile "$pbuilderrc" \
@@ -54,24 +54,22 @@ build_product() {
 	echo "Building..."
 	setup_log_output
 	sudo DIST="$target_distro" ARCH="$target_arch" pdebuild \
-		--buildresult "$build_result" \
+		--buildresult "$build_dir" \
 		--configfile "$pbuilderrc" \
 		--logfile "$log_file"
 }
 
 upload_product() {
 	echo "Uploading..."
-	#freight-add -c /etc/freight.conf "$build_result"/*.deb apt/"$target_codename"
-	#freight-add -c /etc/freight.conf "$build_result"/*.dsc "$build_result"/*.tar.gz apt/"$target_codename"
+	#freight-add -c /etc/freight.conf "$build_dir"/*.deb apt/"$target_codename"
+	#freight-add -c /etc/freight.conf "$build_dir"/*.dsc "$build_dir"/*.tar.gz apt/"$target_codename"
 	#freight-cache -c /etc/freight.conf
-	scp "$build_result"/* "$remote_user@$remote_server:$remote_repo_root/$target_codename"
+	scp "$build_dir"/* "$remote_user@$remote_server:$remote_repo_root/$target_codename"
 }
 
 cleanup() {
 	echo "Cleaning up..."
-	sudo rm -rf "$build_result"
-#	gzip "$log_file"
-#	find "$log_dir" -mtime +30 -type f -delete # Delete logs older than 30 days
+	sudo rm -rf "$build_dir"
 }
 
 trap cleanup EXIT INT TERM
