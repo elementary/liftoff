@@ -7,7 +7,7 @@ USEPROC=yes
 USEDEVPTS=yes
 USEDEVFS=no
 
-EXTRAPACKAGES="apt-utils intltool"
+EXTRAPACKAGES="apt-utils eatmydata intltool"
 
 # Remove potentially dangerous or undesirable packages like lilo
 REMOVEPACKAGES="lilo"
