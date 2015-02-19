@@ -12,8 +12,6 @@ source /etc/elementary-builder/builder.conf
 
 pbuilderrc="/etc/elementary-builder/pbuilderrc"
 
-build_dir=$(mktemp -d build-result.XXX)
-
 distro_to_codename() {
 	echo "Determining distribution codename..."
 	if [ "$target_distro" == "testing" ] ; then
@@ -52,6 +50,7 @@ create_pbuilder_environment() {
 
 build_package() {
 	echo "Building..."
+	build_dir=$(mktemp -d build-result.XXX)
 	setup_log_output
 	DIST="$target_distro" ARCH="$target_arch" pdebuild \
 		--buildresult "$build_dir" \
