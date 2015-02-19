@@ -160,7 +160,6 @@ fi
 
 # External repository
 EXTERNAL_REPO="deb [trusted=yes] http://192.168.1.114 $DIST main"
-OTHERMIRROR="$OTHERMIRROR|$EXTERNAL_REPO"
 ENABLE_EXTERNAL_REPO=false
 
 if [ "$ENABLE_EXTERNAL_REPO" == "true" ] ;  then
