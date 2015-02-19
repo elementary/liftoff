@@ -137,7 +137,7 @@ else
 fi
 
 # ccache
-ENABLE_CCACHE=true
+ENABLE_CCACHE=false
 
 if [ "$ENABLE_CCACHE" = "true" ] ; then
     export CCACHE_DIR="/var/cache/pbuilder/ccache"
