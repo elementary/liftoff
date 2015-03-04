@@ -2,4 +2,7 @@
 # Usage: recipe2source foo.recipe working-dir
 
 # Convert recipe to source code
-bzr dailydeb "$1" "$2" --allow-fallback-to-native
+bzr -Derror dailydeb "$1" "$2" \
+	--allow-fallback-to-native \
+	--no-build \
+	--safe
