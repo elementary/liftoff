@@ -20,7 +20,7 @@ DEBEMAIL="elementary Builds <builds@elementaryos.org>"
 BUILDSOURCEROOTCMD="fakeroot"
 PBUILDERROOTCMD="sudo -E"
 
-PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends"
+PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends-aptitude"
 
 # Command-line option passed on to dpkg-buildpackage.
 DEBBUILDOPTS=""
