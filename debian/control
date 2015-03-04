@@ -1,12 +1,12 @@
-Source: elementary-builder
+Source: liftoff
 Section: devel
 Priority: optional
 Maintainer: Cody Garver <cody@elementaryos.org>
-Build-Depends: debhelper (>= 8.0.0)
-Standards-Version: 3.9.4
-Homepage: http://elementaryos.org
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://elementaryos.io
 
-Package: elementary-builder
+Package: liftoff
 Architecture: any
 Depends: bzr,
          bzr-builder,

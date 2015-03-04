@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Load configuration
-source /etc/elementary-builder/builder.conf
-
-# Start loop
-for arch in `echo $target_archs` ; do for dist in `echo $target_distros` ; do elementary-builder ${dist} ${arch} ; done ; done

@@ -1,8 +1,8 @@
-elementary-builder usr/bin
-elementary-builder-loop usr/bin
-pbuilderrc etc/elementary-builder
-builder.conf etc/elementary-builder
-recipe2source usr/bin
-recipe-loop usr/bin
-hooks/* etc/elementary-builder/hooks
-recipes/* etc/elementary-builder/recipes
+bin/liftoff usr/bin
+bin/liftoff-loop usr/bin
+bin/recipe2source usr/bin
+bin/recipe-loop usr/bin
+lib/hooks/* usr/lib/liftoff/hooks
+lib/liftoff.conf usr/lib/liftoff
+lib/pbuilderrc usr/lib/liftoff
+lib/recipes/* usr/lib/liftoff/recipes

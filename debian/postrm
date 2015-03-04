@@ -5,7 +5,7 @@ set -e
 case "$1" in
     purge)
         # remove default cache dir
-        rm -rf /var/cache/elementary-builder/
+        rm -rf /var/cache/liftoff/
     ;;
 
     *)

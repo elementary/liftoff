@@ -8,9 +8,9 @@ target_distro="$1"
 target_arch="$2"
 
 # Load configuration
-source /etc/elementary-builder/builder.conf
+source /usr/lib/liftoff/liftoff.conf
 
-pbuilderrc="/etc/elementary-builder/pbuilderrc"
+pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
 distro_to_codename() {
 	echo "Determining distribution codename..."
@@ -23,7 +23,7 @@ distro_to_codename() {
 	else
 		target_codename="$target_distro"
 	fi
-	current_basetgz="/var/cache/elementary-builder/$target_codename-$target_arch-base.tgz"
+	current_basetgz="/var/cache/liftoff/$target_codename-$target_arch-base.tgz"
 	echo "Codename: $target_codename"
 }
 

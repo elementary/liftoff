@@ -1,1 +1,0 @@
-for recipe in /etc/elementary-builder/recipes/* ; do recipe2source "$recipe" /tmp/builds/ ; done

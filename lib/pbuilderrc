@@ -1,5 +1,5 @@
-HOOKDIR="/etc/elementary-builder/hooks"
-CACHEDIR="/var/cache/elementary-builder"
+HOOKDIR="/usr/lib/liftoff/hooks"
+CACHEDIR="/var/cache/liftoff"
 
 BUILDPLACE="$CACHEDIR"/build/
 
