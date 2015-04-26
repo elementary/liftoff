@@ -30,7 +30,7 @@ distro_to_codename() {
 setup_log_output() {
 	echo "Setting up log output..."
 	mkdir -p "$log_dir"
-	timestamp=$(date +%Y-%m-%d-%H:%M:%S)
+	timestamp=$(date +%Y-%m-%d-%H.%M.%S)
 	log_file="$log_dir/$timestamp-$target_codename-$target_arch.log"
 	echo "$log_file"
 }
@@ -50,7 +50,7 @@ create_pbuilder_environment() {
 build_package() {
 	echo "Building..."
 	build_dir=$(mktemp -d build-result.XXX)
-	setup_log_output
+
 	DIST="$target_distro" ARCH="$target_arch" pdebuild \
 		--buildresult "$build_dir" \
 		--configfile "$pbuilderrc" \
@@ -80,8 +80,10 @@ if ( ! [ -e "$current_basetgz" ] || [ "$(stat --format=%s "$current_basetgz")" -
 	create_pbuilder_environment
 fi
 
+setup_log_output # Log
+
 build_package # Build
 
 upload_package # Upload
 
-echo "Finished."
+echo "Finished."l
