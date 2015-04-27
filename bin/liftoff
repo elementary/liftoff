@@ -19,7 +19,6 @@ echo "   PBUILDERRC: $pbuilderrc"
 source $config
 
 distro_to_codename() {
-	echo "Determining distribution codename..."
 	if [ "$target_distro" == "testing" ] ; then
 		target_codename="$testing_codename"
 	elif [ "$target_distro" == "unstable" ] ; then
