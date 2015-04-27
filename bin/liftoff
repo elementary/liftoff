@@ -93,4 +93,4 @@ build_package # Build
 
 upload_package # Upload
 
-echo "Finished."l
+echo "Finished."
