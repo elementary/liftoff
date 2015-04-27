@@ -1,16 +1,22 @@
 #!/bin/bash
 set -e
 
-# Target distribution
-target_distro="$1"
+while getopts a:c:d:p: var; do
+	case $var in
+		a) target_arch="$OPTARG";;
+		c) config="$OPTARG";;
+		d) target_distro="$OPTARG";;
+		p) pbuilderrc="$OPTARG";;
+	esac
+done
 
-# Target architectures
-target_arch="$2"
+echo " ARCHITECTURE: $target_arch"
+echo "CONFIGURATION: $config"
+echo " DISTRIBUTION: $target_distro"
+echo "   PBUILDERRC: $pbuilderrc"
 
 # Load configuration
-source /usr/lib/liftoff/liftoff.conf
-
-pbuilderrc="/usr/lib/liftoff/pbuilderrc"
+source $config
 
 distro_to_codename() {
 	echo "Determining distribution codename..."
@@ -23,8 +29,9 @@ distro_to_codename() {
 	else
 		target_codename="$target_distro"
 	fi
+	echo "     CODENAME: $target_codename"
 	current_basetgz="/var/cache/liftoff/$target_codename-$target_arch-base.tgz"
-	echo "Codename: $target_codename"
+	echo "      BASETGZ: $current_basetgz"
 }
 
 setup_log_output() {
