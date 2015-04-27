@@ -7,4 +7,8 @@ source $config
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
 # Start loop
-for arch in `echo $target_archs` ; do for dist in `echo $target_distros` ; do liftoff -a ${arch} -c $config -d ${dist} -p $pbuilderrc ; done ; done
+for arch in $(echo $target_archs) ;
+    do for dist in $(echo $target_distros) ;
+        do liftoff -a "${arch}" -c "$config" -d "${dist}" -p "$pbuilderrc" ;
+        done ;
+    done
