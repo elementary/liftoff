@@ -1,19 +1,20 @@
 #!/bin/bash
 set -e
 
-while getopts a:c:d:p: var; do
+while getopts a:c:d:l:p: var; do
 	case $var in
 		a) target_arch="$OPTARG";;
 		c) config="$OPTARG";;
 		d) target_distro="$OPTARG";;
+		l) log="$OPTARG";;
 		p) pbuilderrc="$OPTARG";;
 	esac
 done
 
-echo " ARCHITECTURE: $target_arch"
+echo "ARCHITECTURE:  $target_arch"
 echo "CONFIGURATION: $config"
-echo " DISTRIBUTION: $target_distro"
-echo "   PBUILDERRC: $pbuilderrc"
+echo "DISTRIBUTION:  $target_distro"
+echo "PBUILDERRC:    $pbuilderrc"
 
 # Load configuration
 source $config
@@ -28,17 +29,9 @@ distro_to_codename() {
 	else
 		target_codename="$target_distro"
 	fi
-	echo "     CODENAME: $target_codename"
+	echo "CODENAME:      $target_codename"
 	current_basetgz="/var/cache/liftoff/$target_codename-$target_arch-base.tgz"
-	echo "      BASETGZ: $current_basetgz"
-}
-
-setup_log_output() {
-	echo "Setting up log output..."
-	mkdir -p "$log_dir"
-	timestamp=$(date +%Y-%m-%d-%H.%M.%S)
-	log_file="$log_dir/$timestamp-$target_codename-$target_arch.log"
-	echo "$log_file"
+	echo "BASETGZ:       $current_basetgz"
 }
 
 create_pbuilder_environment() {
@@ -60,7 +53,7 @@ build_package() {
 	DIST="$target_distro" ARCH="$target_arch" pdebuild \
 		--buildresult "$build_dir" \
 		--configfile "$pbuilderrc" \
-		--logfile "$log_file"
+		--logfile "$log"
 }
 
 upload_package() {
@@ -85,8 +78,6 @@ distro_to_codename
 if ( ! [ -e "$current_basetgz" ] || [ "$(stat --format=%s "$current_basetgz")" -eq 0 ] ); then
 	create_pbuilder_environment
 fi
-
-setup_log_output # Log
 
 build_package # Build
 

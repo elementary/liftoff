@@ -7,9 +7,17 @@ source $config
 
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
+
+setup_log_output() {
+	echo "Setting up log output..."
+	mkdir -p "$log_dir"
+	timestamp=$(date +%Y-%m-%d-%H.%M.%S)
+	log_file="$log_dir/$timestamp-$target_codename-$target_arch.log"
+}
+
 # Start loop
 for arch in $(echo $target_archs) ;
     do for dist in $(echo $target_distros) ;
-        do liftoff -a "${arch}" -c "$config" -d "${dist}" -p "$pbuilderrc" ;
+        do setup_log_output && liftoff -a "${arch}" -c "$config" -d "${dist}" -l "$log_file" -p "$pbuilderrc" ;
         done ;
     done
