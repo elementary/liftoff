@@ -15,6 +15,14 @@ setup_log_output() {
 	log_file="$log_dir/$timestamp-$target_codename-$target_arch.log"
 }
 
+add_repo_keys() {
+	apt-key adv \
+		--keyserver keyserver.ubuntu.com \
+		--recv-keys "${keylist[@]}"
+}
+
+add_repo_keys
+
 # Start loop
 for arch in $(echo $target_archs) ;
     do for dist in $(echo $target_distros) ;

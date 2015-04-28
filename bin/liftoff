@@ -37,9 +37,6 @@ distro_to_codename() {
 create_pbuilder_environment() {
 	echo "Creating pbuilder environment..."
 	#rm $current_basetgz # in case it's zero-size file leftover from a failed build
-	apt-key adv \
-		--keyserver keyserver.ubuntu.com \
-		--recv-keys "${keylist[@]}"
 	DIST="$target_distro" ARCH="$target_arch" pbuilder create \
 		--configfile "$pbuilderrc" \
 		--debootstrapopts --keyring=/etc/apt/trusted.gpg \
