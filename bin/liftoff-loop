@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Load configuration
 config="/usr/lib/liftoff/liftoff.conf"
