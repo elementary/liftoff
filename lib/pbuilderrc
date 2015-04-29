@@ -76,7 +76,7 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
 UBUNTU_SUITES=("precise" "trusty")
 
 # Mirrors
-DEBIAN_MIRROR="ftp.us.debian.org"
+DEBIAN_MIRROR="mirrors.linode.com"
 if [ "${ARCH}" == "armhf" ]; then
     UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
 else
