@@ -7,19 +7,6 @@ source $config
 
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
-distro_to_codename() {
-	if [ "$target_distro" == "testing" ] ; then
-		target_codename="$testing_codename"
-	elif [ "$target_distro" == "unstable" ] ; then
-		target_codename="$unstable_codename"
-	elif [ "$target_distro" == "stable" ] ; then
-		target_codename="$stable_codename"
-	else
-		target_codename="$target_distro"
-	fi
-	current_basetgz="/var/cache/liftoff/$target_codename-$target_arch-base.tgz"
-}
-
 add_repo_keys() {
 	apt-key adv \
 		--keyserver keyserver.ubuntu.com \
@@ -34,6 +21,36 @@ setup_build_dir() {
 # Start loop
 for arch in $(echo $target_archs) ;
     do for dist in $(echo $target_distros) ;
-        do distro_to_codename && setup_build_dir && liftoff -a "${arch}" -b "$build_dir" -c "$config" -d "${dist}" -k "/etc/apt/trusted.gpg" -l "$build_log" -n "$target_codename" -p "$pbuilderrc" -s "$proxy_url" -t "$current_basetgz" && echo "Finished." ;
+        do
+distro_to_codename() {
+	if [ "$target_distro" == "testing" ] ; then
+		target_codename="$testing_codename"
+	elif [ "$target_distro" == "unstable" ] ; then
+		target_codename="$unstable_codename"
+	elif [ "$target_distro" == "stable" ] ; then
+		target_codename="$stable_codename"
+	else
+		target_codename="$target_distro"
+	fi
+	current_basetgz="/var/cache/liftoff/$target_codename-$target_arch-base.tgz"
+}
+
+start_build() {
+	liftoff -a "${arch}" \
+		-b "$build_dir" \
+		-c "$config" \
+		-d "${dist}" \
+		-k "/etc/apt/trusted.gpg" \
+		-l "$build_log" \
+		-n "$target_codename" \
+		-p "$pbuilderrc" \
+		-s "$proxy_url" \
+		-t "$current_basetgz"
+}
+			distro_to_codename
+			setup_build_dir
+			start_build
+
+				echo "Finished."
         done ;
     done
