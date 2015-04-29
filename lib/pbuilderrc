@@ -14,7 +14,8 @@ REMOVEPACKAGES="lilo"
 
 # Make debconf not interact with user
 export DEBIAN_FRONTEND="noninteractive"
-DEBEMAIL="elementary Builds <builds@elementaryos.org>"
+DEBEMAIL="builds@elementaryos.org"
+DEBFULLNAME="elementary Builds"
 
 # For pbuilder debuild (sudo -E keeps the environment as-is)
 BUILDSOURCEROOTCMD="fakeroot"
