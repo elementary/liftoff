@@ -85,15 +85,9 @@ fi
 
 # Optionally change Debian release states in $DIST to their names.
 case "$DIST" in
-    unstable)
-        DIST="$UNSTABLE_CODENAME"
-        ;;
-    testing)
-        DIST="$TESTING_CODENAME"
-        ;;
-    stable)
-        DIST="$STABLE_CODENAME"
-        ;;
+    unstable) DIST="$UNSTABLE_CODENAME";;
+    testing) DIST="$TESTING_CODENAME";;
+    stable) DIST="$STABLE_CODENAME";;
 esac
 
 NAME="$DIST"
