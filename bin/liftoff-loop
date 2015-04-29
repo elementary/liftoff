@@ -14,7 +14,7 @@ add_keys() {
 }
 
 setup_build() {
-	build_dir=$(mktemp -d build-result.XXX)
+	build_dir=$(mktemp -d /tmp/build-result.XXX)
 	build_log="$build_dir/build.log"
 }
 
