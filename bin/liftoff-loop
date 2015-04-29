@@ -33,7 +33,7 @@ for arch in $(echo $target_archs) ;
 				-l "$build_log" \
 				-p "$pbuilderrc" \
 				-s "$proxy_url" \
-				-t "/var/cache/liftoff/$(distro2codename ${dist})-${arch}-base.tgz"
+				-t "/var/cache/liftoff/$(distro2codename -d ${dist} -c $config)-${arch}-base.tgz"
 			echo "Finished."
         done ;
     done
