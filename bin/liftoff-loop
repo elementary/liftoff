@@ -22,8 +22,8 @@ add_keys
 
 # Start loop
 for arch in $(echo $target_archs) ;
-    do for dist in $(echo $target_distros) ;
-        do
+	do for dist in $(echo $target_distros) ;
+		do
 			setup_build
 			liftoff \
 				-a "${arch}" \
@@ -36,5 +36,5 @@ for arch in $(echo $target_archs) ;
 				-s "$proxy_url" \
 				-t "/var/cache/liftoff/$(distro2codename -d ${dist} -c $config)-${arch}-base.tgz"
 			echo "Finished."
-        done ;
-    done
+		done ;
+	done
