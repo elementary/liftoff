@@ -10,16 +10,14 @@ done
 
 source "$config"
 
-distro_to_codename() {
-	if [ "$distro" == "testing" ] ; then
-		codename="$testing_codename"
-	elif [ "$distro" == "unstable" ] ; then
-		codename="$unstable_codename"
-	elif [ "$distro" == "stable" ] ; then
-		codename="$stable_codename"
-	else
-		codename="$distro"
-	fi
+if [ "$distro" == "testing" ] ; then
+	codename="$testing_codename"
+elif [ "$distro" == "unstable" ] ; then
+	codename="$unstable_codename"
+elif [ "$distro" == "stable" ] ; then
+	codename="$stable_codename"
+else
+	codename="$distro"
+fi
 
-    echo "$codename"
-}
+echo "$codename"
