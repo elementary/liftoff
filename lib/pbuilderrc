@@ -167,4 +167,5 @@ OS_PATCHES="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/
 
 if [ "$DIST" == "trusty" ] ; then
     OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES"
+    EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
 fi
