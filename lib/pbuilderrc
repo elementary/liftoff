@@ -62,9 +62,6 @@ PKGNAME_LOGFILE_EXTENTION="_$(dpkg --print-architecture).build"
 # a logfile named after the package name.
 PKGNAME_LOGFILE="yes"
 
-# Fast gzip alternative
-COMPRESSPROG=pigz
-
 # Codenames for Debian suites according to their alias.
 # Update these when needed.
 UNSTABLE_CODENAME="sid"
