@@ -16,7 +16,7 @@ while getopts a:b:c:d:k:l:n:p:s:t: var; do
 done
 
 create_pbuilder_environment() {
-	echo "Creating pbuilder environment..."
+	echo "Creating pbuilder environment ..."
 	DIST="$distro" ARCH="$arch" pbuilder create \
 		--configfile "$pbuilderrc" \
 		--debootstrapopts --keyring="$keyring" \
@@ -30,13 +30,13 @@ build_package() {
 		--logfile "$log"
 }
 
-echo "ARCHITECTURE:  $arch"
-echo "BASETGZ:       $basetgz"
-echo "CONFIGURATION: $config"
-echo "DISTRIBUTION:  $distro"
-echo "KEYRING:       $keyring"
-echo "LOG:           $log"
-echo "PBUILDERRC:    $pbuilderrc"
+echo "Architecture:  $arch"
+echo "Base:          $basetgz"
+echo "Configuration: $config"
+echo "Distribution:  $distro"
+echo "Keyring:       $keyring"
+echo "Log:           $log"
+echo "pbuilderrc:    $pbuilderrc"
 
 # Create environment if it doesn't exist
 if ( ! [ -e "$basetgz" ] || [ "$(stat --format=%s "$basetgz")" -eq 0 ] ); then

@@ -10,7 +10,7 @@ pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 add_keys() {
 	apt-key adv \
 		--keyserver keyserver.ubuntu.com \
-		--recv-keys "${keylist[@]}"
+		--recv-keys "${keys[@]}"
 }
 
 setup_build() {
@@ -25,7 +25,8 @@ for arch in $(echo $target_archs) ;
     do for dist in $(echo $target_distros) ;
         do
 			setup_build
-			liftoff -a "${arch}" \
+			liftoff \
+				-a "${arch}" \
 				-b "$build_dir" \
 				-c "$config" \
 				-d "${dist}" \
