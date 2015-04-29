@@ -1,3 +1,4 @@
+bin/distro2codename usr/bin
 bin/liftoff usr/bin
 bin/liftoff-loop usr/bin
 bin/recipe2source usr/bin

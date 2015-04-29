@@ -9,7 +9,6 @@ while getopts a:b:c:d:k:l:n:p:s:t: var; do
 		d) distro="$OPTARG";;
 		k) keyring="$OPTARG";;
 		l) log="$OPTARG";;
-		n) codename="$OPTARG";;
 		p) pbuilderrc="$OPTARG";;
 		s) proxy="$OPTARG";;
 		t) basetgz="$OPTARG";;
@@ -33,7 +32,6 @@ build_package() {
 
 echo "ARCHITECTURE:  $arch"
 echo "BASETGZ:       $basetgz"
-echo "CODENAME:      $codename"
 echo "CONFIGURATION: $config"
 echo "DISTRIBUTION:  $distro"
 echo "KEYRING:       $keyring"

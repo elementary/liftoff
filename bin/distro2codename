@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+while getopts c:d: var; do
+	case $var in
+		c) config="$OPTARG";;
+		d) distro="$OPTARG";;
+	esac
+done
+
+source "$config"
+
+distro_to_codename() {
+	if [ "$distro" == "testing" ] ; then
+		codename="$testing_codename"
+	elif [ "$distro" == "unstable" ] ; then
+		codename="$unstable_codename"
+	elif [ "$distro" == "stable" ] ; then
+		codename="$stable_codename"
+	else
+		codename="$distro"
+	fi
+
+    echo "$codename"
+}
