@@ -76,24 +76,19 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
 UBUNTU_SUITES=("precise" "trusty")
 
 # Mirrors
-DEBIAN_MIRROR="mirrors.linode.com"
 if [ "${ARCH}" == "armhf" ]; then
+    DEBIAN_MIRROR="ftp.us.debian.org"
     UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
 else
+    DEBIAN_MIRROR="mirrors.linode.com"
     UBUNTU_MIRROR="mirrors.advancedhosters.com/ubuntu"
 fi
 
 # Optionally change Debian release states in $DIST to their names.
 case "$DIST" in
-    unstable)
-        DIST="$UNSTABLE_CODENAME"
-        ;;
-    testing)
-        DIST="$TESTING_CODENAME"
-        ;;
-    stable)
-        DIST="$STABLE_CODENAME"
-        ;;
+    unstable) DIST="$UNSTABLE_CODENAME";;
+    testing) DIST="$TESTING_CODENAME";;
+    stable) DIST="$STABLE_CODENAME";;
 esac
 
 NAME="$DIST"
@@ -144,7 +139,6 @@ ENABLE_EXTERNAL_REPO=false
 
 if [ "$ENABLE_EXTERNAL_REPO" == "true" ] ;  then
     OTHERMIRROR="$OTHERMIRROR|$EXTERNAL_REPO"
-    BINDMOUNTS="$BINDMOUNTS $EXTERNAL_REPO_MOUNTS"
 fi
 
 # ppa:elementary-os/os-patches
