@@ -65,8 +65,8 @@ PKGNAME_LOGFILE="yes"
 # Codenames for Debian suites according to their alias.
 # Update these when needed.
 UNSTABLE_CODENAME="sid"
-TESTING_CODENAME="jessie"
-STABLE_CODENAME="wheezy"
+TESTING_CODENAME="stretch"
+STABLE_CODENAME="jessie"
 
 # List of Debian suites.
 DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
