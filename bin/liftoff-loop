@@ -3,26 +3,19 @@ set -e
 
 # Load configuration
 config="/usr/lib/liftoff/liftoff.conf"
-source $config
+source "$config"
 
-add_keys() {
-	apt-key adv \
-		--keyserver keyserver.ubuntu.com \
-		--recv-keys "${keys[@]}"
-}
-
-setup_build() {
-	build_dir=$(mktemp -d /tmp/build-result.XXX)
-	build_log="$build_dir/build.log"
-}
-
-add_keys
+# Add repository keys
+apt-key adv \
+	--keyserver keyserver.ubuntu.com \
+	--recv-keys "${keys[@]}"
 
 # Start loop
-for arch in $(echo $target_archs) ;
-	do for dist in $(echo $target_distros) ;
+for arch in $(echo "$target_archs") ;
+	do for dist in $(echo "$target_distros") ;
 		do
-			setup_build
+			build_dir=$(mktemp -d /tmp/build-result.XXX)
+			build_log="$build_dir/build.log"
 			liftoff \
 				-a "${arch}" \
 				-b "$build_dir" \
@@ -32,7 +25,6 @@ for arch in $(echo $target_archs) ;
 				-l "$build_log" \
 				-p "/usr/lib/liftoff/pbuilderrc" \
 				-s "$proxy_url" \
-				-t "/var/cache/liftoff/$(distro2codename -d ${dist} -c $config)-${arch}-base.tgz"
-			echo "Finished."
+				-t "/var/cache/liftoff/$(distro2codename -d "${dist}" -c "$config")-${arch}-base.tgz"
 		done ;
 	done
