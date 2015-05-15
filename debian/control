@@ -10,7 +10,7 @@ Package: liftoff
 Architecture: any
 Depends: bzr,
          bzr-builder,
-         ccache,
+#         ccache,
          debhelper,
 #        debian-archive-keyring,
 #        debian-keyring,
