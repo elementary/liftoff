@@ -1,14 +1,13 @@
 #!/bin/bash
 set -e
 
-while getopts a:b:c:d:k:l:n:p:s:t: var; do
+while getopts a:b:c:d:k:n:p:s:t: var; do
 	case $var in
 		a) arch="$OPTARG";;
 		b) build_dir="$OPTARG";;
 		c) config="$OPTARG";;
 		d) distro="$OPTARG";;
 		k) keyring="$OPTARG";;
-		l) log="$OPTARG";;
 		p) pbuilderrc="$OPTARG";;
 		s) proxy="$OPTARG";;
 		t) basetgz="$OPTARG";;
@@ -26,8 +25,7 @@ create_pbuilder_environment() {
 build_package() {
 	DIST="$distro" ARCH="$arch" pdebuild \
 		--buildresult "$build_dir" \
-		--configfile "$pbuilderrc" \
-		--logfile "$log"
+		--configfile "$pbuilderrc"
 }
 
 echo "Architecture:  $arch"
@@ -35,7 +33,6 @@ echo "Base:          $basetgz"
 echo "Configuration: $config"
 echo "Distribution:  $distro"
 echo "Keyring:       $keyring"
-echo "Log:           $log"
 echo "pbuilderrc:    $pbuilderrc"
 
 # Create environment if it doesn't exist
