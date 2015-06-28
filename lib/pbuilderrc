@@ -14,7 +14,7 @@ REMOVEPACKAGES="lilo"
 
 # Make debconf not interact with user
 export DEBIAN_FRONTEND="noninteractive"
-DEBEMAIL="builds@elementaryos.org"
+DEBEMAIL="builds@elementary.io"
 DEBFULLNAME="elementary Builds"
 
 # For pbuilder debuild (sudo -E keeps the environment as-is)
@@ -76,12 +76,12 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
 UBUNTU_SUITES=("precise" "trusty")
 
 # Mirrors
-if [ "${ARCH}" == "armhf" ]; then
-    DEBIAN_MIRROR="ftp.us.debian.org"
+if [ "${ARCH}" != 'i386' ] && [ "${ARCH}" != 'amd64' ]; then
+    DEBIAN_MIRROR="ftp.us.debian.org/debian"
     UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
 else
-    DEBIAN_MIRROR="mirrors.linode.com"
-    UBUNTU_MIRROR="mirrors.advancedhosters.com/ubuntu"
+    DEBIAN_MIRROR="mirrors.linode.com/debian"
+    UBUNTU_MIRROR="mirrors.linode.com/ubuntu"
 fi
 
 # Optionally change Debian release states in $DIST to their names.
@@ -108,7 +108,7 @@ APTCACHE="$CACHEDIR/aptcache/$NAME/"
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     # Debian configuration
-    MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
+    MIRRORSITE="http://$DEBIAN_MIRROR"
     COMPONENTS="main contrib non-free"
     OTHERMIRROR=""
 

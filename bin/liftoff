@@ -1,39 +1,50 @@
 #!/bin/bash
 set -e
 
-while getopts a:b:c:d:k:n:p:s:t: var; do
+while getopts a:b:d:n:t: var; do
 	case $var in
 		a) arch="$OPTARG";;
 		b) build_dir="$OPTARG";;
-		c) config="$OPTARG";;
+#		c) config="$OPTARG";;
 		d) distro="$OPTARG";;
-		k) keyring="$OPTARG";;
-		p) pbuilderrc="$OPTARG";;
-		s) proxy="$OPTARG";;
+#		k) keyring="$OPTARG";;
+#		p) pbuilderrc="$OPTARG";;
+#		s) proxy="$OPTARG";;
 		t) basetgz="$OPTARG";;
 	esac
 done
 
+# Passed to pbuilderrc
+export DIST="$distro"
+export ARCH="$arch"
+
+# Sensitive paths
+config="/usr/lib/liftoff/liftoff.conf"
+keyring="/etc/apt/trusted.gpg"
+pbuilderrc="/usr/lib/liftoff/pbuilderrc"
+
 create_pbuilder_environment() {
-	echo "Creating pbuilder environment ..."
-	DIST="$distro" ARCH="$arch" pbuilder create \
+	echo "Creating pbuilder environment..."
+	pbuilder create \
+		--basetgz "$basetgz" \
 		--configfile "$pbuilderrc" \
 		--debootstrapopts --keyring="$keyring" \
 		--http-proxy "$proxy"
 }
 
 build_package() {
-	DIST="$distro" ARCH="$arch" pdebuild \
+	pdebuild \
 		--buildresult "$build_dir" \
 		--configfile "$pbuilderrc"
 }
 
-echo "Architecture:  $arch"
-echo "Base:          $basetgz"
-echo "Configuration: $config"
-echo "Distribution:  $distro"
-echo "Keyring:       $keyring"
-echo "pbuilderrc:    $pbuilderrc"
+# Debug print
+#echo "Architecture:  $arch"
+#echo "Base:          $basetgz"
+#echo "Configuration: $config"
+#echo "Distribution:  $distro"
+#echo "Keyring:       $keyring"
+#echo "pbuilderrc:    $pbuilderrc"
 
 # Create environment if it doesn't exist
 if ( ! [ -e "$basetgz" ] || [ "$(stat --format=%s "$basetgz")" -eq 0 ] ); then
