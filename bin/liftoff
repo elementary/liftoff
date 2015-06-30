@@ -5,12 +5,15 @@ while getopts a:b:d:n:t: var; do
 	case $var in
 		a) arch="$OPTARG";;
 		b) build_dir="$OPTARG";;
-#		c) config="$OPTARG";;
 		d) distro="$OPTARG";;
+		t) basetgz="$OPTARG";;
+# Sensitive file paths disabled by default for security
+# Don't forget to add the getopts above!
+#		c) config="$OPTARG";;
 #		k) keyring="$OPTARG";;
 #		p) pbuilderrc="$OPTARG";;
 #		s) proxy="$OPTARG";;
-		t) basetgz="$OPTARG";;
+# Don't forget to add newly enabled flags to getopts above!
 	esac
 done
 
