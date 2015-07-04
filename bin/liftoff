@@ -7,8 +7,7 @@ while getopts a:b:d:n:t: var; do
 		b) build_dir="$OPTARG";;
 		d) distro="$OPTARG";;
 		t) basetgz="$OPTARG";;
-# Sensitive file paths disabled by default for security
-# Don't forget to add the getopts above!
+# Sensitive values hardcoded by default for security
 #		c) config="$OPTARG";;
 #		k) keyring="$OPTARG";;
 #		p) pbuilderrc="$OPTARG";;
@@ -41,7 +40,7 @@ build_package() {
 		--configfile "$pbuilderrc"
 }
 
-# Debug print
+# Useful debug print
 #echo "Architecture:  $arch"
 #echo "Base:          $basetgz"
 #echo "Configuration: $config"
