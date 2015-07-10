@@ -1,6 +1,9 @@
 HOOKDIR="/usr/lib/liftoff/hooks"
 CACHEDIR="/var/cache/liftoff"
 
+# Threaded decompression
+COMPRESSPROG=pixz
+
 BUILDPLACE="$CACHEDIR"/build/
 
 USEPROC=yes
