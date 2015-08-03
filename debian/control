@@ -8,10 +8,8 @@ Homepage: http://elementaryos.io
 
 Package: liftoff
 Architecture: any
-Depends: bzr,
-         bzr-builder,
-#         ccache,
-         debhelper,
+Depends: debhelper,
+#        ccache,
 #        debian-archive-keyring,
 #        debian-keyring,
          dh-autoreconf,
@@ -23,7 +21,7 @@ Depends: bzr,
          qemu-user-static,
          quilt,
 #        ubuntu-keyring,
-         valac
          ${misc:Depends}
+Recommends: bzr, bzr-builder, valac
 Description: automated build system for elementary
  A wrapper for pbuilder that automatically builds and uploads elementary packages.
