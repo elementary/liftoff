@@ -76,7 +76,7 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
     "unstable" "testing" "stable")
 
 # List of Ubuntu suites. Update these when needed.
-UBUNTU_SUITES=("precise" "trusty")
+UBUNTU_SUITES=("precise" "trusty" "xenial")
 
 # Mirrors
 if [ "${ARCH}" != 'i386' ] && [ "${ARCH}" != 'amd64' ]; then
@@ -147,7 +147,7 @@ fi
 # ppa:elementary-os/os-patches
 OS_PATCHES="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
 
-if [ "$DIST" == "trusty" ] ; then
+if [ "$DIST" == "trusty" ] || [ "$DIST" == "xenial" ] ; then
     OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES"
     EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
 fi
