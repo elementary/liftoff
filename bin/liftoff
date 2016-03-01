@@ -40,13 +40,15 @@ build_package() {
 		--configfile "$pbuilderrc"
 }
 
-# Useful debug print
-#echo "Architecture:  $arch"
-#echo "Base:          $basetgz"
-#echo "Configuration: $config"
-#echo "Distribution:  $distro"
-#echo "Keyring:       $keyring"
-#echo "pbuilderrc:    $pbuilderrc"
+print_debug() {
+	echo "Architecture:  $arch"
+	echo "Base:          $basetgz"
+	echo "Configuration: $config"
+	echo "Distribution:  $distro"
+	echo "Keyring:       $keyring"
+	echo "pbuilderrc:    $pbuilderrc"
+}
+#print_debug
 
 # Create environment if it doesn't exist
 if ( ! [ -e "$basetgz" ] || [ "$(stat --format=%s "$basetgz")" -eq 0 ] ); then
