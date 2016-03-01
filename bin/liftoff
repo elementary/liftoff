@@ -25,7 +25,7 @@ config="/usr/lib/liftoff/liftoff.conf"
 keyring="/etc/apt/trusted.gpg"
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
-create_pbuilder_environment() {
+create_base() {
 	echo "Creating pbuilder environment..."
 	pbuilder create \
 		--basetgz "$basetgz" \
@@ -50,7 +50,7 @@ build_package() {
 
 # Create environment if it doesn't exist
 if ( ! [ -e "$basetgz" ] || [ "$(stat --format=%s "$basetgz")" -eq 0 ] ); then
-	create_pbuilder_environment
+	create_base
 fi
 
 build_package # Build
