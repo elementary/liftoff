@@ -1,5 +1,2 @@
 bin/* usr/bin
-lib/hooks/* usr/lib/liftoff/hooks
-lib/liftoff.conf usr/lib/liftoff
-lib/pbuilderrc usr/lib/liftoff
-lib/recipes/* usr/lib/liftoff/recipes
+lib/* usr/lib/liftoff

@@ -1,1 +1,0 @@
-for recipe in /usr/lib/liftoff/recipes/* ; do recipe2source "$recipe" /tmp/builds/ ; done

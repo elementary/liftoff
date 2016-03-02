@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r{revno}+pkg{revno:packaging}
-lp:pantheon-calculator
-nest-part packaging lp:~elementary-os/pantheon-calculator/deb-packaging debian debian

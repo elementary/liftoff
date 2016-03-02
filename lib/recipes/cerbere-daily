@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r{revno}-0+pkg{revno:packaging}
-lp:cerbere
-nest-part packaging lp:~elementary-os/cerbere/deb-packaging debian debian

@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}~r{revno}+pkg{revno:packaging}
-lp:maya
-nest-part packaging lp:~elementary-os/maya/deb-packaging debian debian

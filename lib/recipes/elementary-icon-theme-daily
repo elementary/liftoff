@@ -1,4 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r{revno:icons}+pkg{revno:packaging}
-lp:~shnatsel/+junk/blank-branch
-nest icons lp:elementaryicons elementary
-nest-part packaging lp:~elementary-os/elementaryicons/updated-ubuntu-packaging debian debian

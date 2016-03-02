@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r{revno}+pkg{revno:packaging}
-lp:midori
-nest packaging lp:~midori/midori/packaging-granite debian

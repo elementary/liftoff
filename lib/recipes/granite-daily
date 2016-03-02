@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version 0.3.0+r{revno}+pkg{revno:packaging}
-lp:granite
-nest-part packaging lp:~elementary-os/granite/deb-packaging-freya debian debian
