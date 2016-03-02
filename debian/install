@@ -1,8 +1,4 @@
-bin/distro2codename usr/bin
-bin/liftoff usr/bin
-bin/liftoff-loop usr/bin
-bin/recipe2source usr/bin
-bin/recipe-loop usr/bin
+bin/* usr/bin
 lib/hooks/* usr/lib/liftoff/hooks
 lib/liftoff.conf usr/lib/liftoff
 lib/pbuilderrc usr/lib/liftoff
