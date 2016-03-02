@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-while getopts a:b:d:n:t: var; do
+while getopts a:b:d: var; do
 	case $var in
 		a) arch="$OPTARG";;
 		b) build_dir="$OPTARG";;
