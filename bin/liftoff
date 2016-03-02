@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-while getopts a:b:d: var; do
+while getopts a:d:o: var; do
 	case $var in
 		a) arch="$OPTARG";;
-		b) build_dir="$OPTARG";;
 		d) distro="$OPTARG";;
+		o) output_dir="$OPTARG";;
 # Sensitive values hardcoded by default for security
 #		c) config="$OPTARG";;
 #		k) keyring="$OPTARG";;
@@ -54,7 +54,7 @@ create_base() {
 
 build_package() {
 	pdebuild \
-		--buildresult "$build_dir" \
+		--buildresult "$output_dir" \
 		--configfile "$pbuilderrc"
 }
 
