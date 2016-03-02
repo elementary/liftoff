@@ -24,6 +24,8 @@ config="/usr/lib/liftoff/liftoff.conf"
 keyring="/etc/apt/trusted.gpg"
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
+source "$config"
+
 # Determine base path
 case "$distro" in
 	testing)
