@@ -6,7 +6,6 @@ while getopts a:b:d:n:t: var; do
 		a) arch="$OPTARG";;
 		b) build_dir="$OPTARG";;
 		d) distro="$OPTARG";;
-		t) basetgz="$OPTARG";;
 # Sensitive values hardcoded by default for security
 #		c) config="$OPTARG";;
 #		k) keyring="$OPTARG";;
@@ -24,6 +23,22 @@ export ARCH="$arch"
 config="/usr/lib/liftoff/liftoff.conf"
 keyring="/etc/apt/trusted.gpg"
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
+
+# Determine base path
+case "$distro" in
+	testing)
+		basetgz="/var/cache/liftoff/$testing_codename-${arch}-base.tgz"
+		;;
+	unstable)
+		basetgz="/var/cache/liftoff/$unstable_codename-${arch}-base.tgz"
+		;;
+	stable)
+		basetgz="/var/cache/liftoff/$stable_codename-${arch}-base.tgz"
+		;;
+	*)
+		basetgz="/var/cache/liftoff/$distro-${arch}-base.tgz"
+		;;
+esac
 
 create_base() {
 	echo "Creating pbuilder environment..."
