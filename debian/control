@@ -10,7 +10,7 @@ Package: liftoff
 Architecture: any
 Depends: debhelper,
 #        ccache,
-#        debian-archive-keyring,
+         debian-archive-keyring,
 #        debian-keyring,
          dh-autoreconf,
          germinate,

@@ -21,12 +21,12 @@ export ARCH="$arch"
 
 # Sensitive paths
 config="/usr/lib/liftoff/liftoff.conf"
-keyring="/etc/apt/trusted.gpg"
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
 source "$config"
 
-# Determine base path
+# Determine base path and keyring
+keyring="/usr/share/keyrings/debian-archive-keyring.gpg"
 case "$distro" in
 	testing)
 		basetgz="/var/cache/liftoff/$testing_codename-${arch}-base.tgz"
@@ -39,6 +39,7 @@ case "$distro" in
 		;;
 	*)
 		basetgz="/var/cache/liftoff/$distro-${arch}-base.tgz"
+		keyring="/etc/apt/trusted.gpg"
 		;;
 esac
 
