@@ -62,6 +62,7 @@ print_debug() {
 	echo "Distribution:  $distro"
 	echo "Keyring:       $keyring"
 	echo "pbuilderrc:    $pbuilderrc"
+	echo "Proxy:         $proxy"
 }
 #print_debug
 
