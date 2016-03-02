@@ -1,10 +1,10 @@
 Source: liftoff
 Section: devel
 Priority: optional
-Maintainer: Cody Garver <cody@elementaryos.org>
+Maintainer: Cody Garver <cody@elementary.io>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.6
-Homepage: http://elementaryos.io
+Homepage: http://elementary.io
 
 Package: liftoff
 Architecture: any
