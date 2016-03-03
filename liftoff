@@ -20,8 +20,7 @@ export ARCH="$arch"
 # Sensitive paths
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
-# Determine base path and keyring
-keyring="/usr/share/keyrings/debian-archive-keyring.gpg"
+# Determine base path
 case "$distro" in
 	testing)
 		export $(grep TESTING_CODENAME= $pbuilderrc | tr -d '"')
@@ -37,17 +36,13 @@ case "$distro" in
 		;;
 	*)
 		basetgz="/var/cache/liftoff/$distro-${arch}-base.tgz"
-		keyring="/etc/apt/trusted.gpg"
 		;;
 esac
 
 create_base() {
 	echo "Creating pbuilder environment..."
 	pbuilder create \
-		--basetgz "$basetgz" \
-		--configfile "$pbuilderrc" \
-		--debootstrapopts --keyring="$keyring" \
-		--http-proxy "$proxy"
+		--configfile "$pbuilderrc"
 }
 
 build_package() {
@@ -60,7 +55,6 @@ print_debug() {
 	echo "Architecture:  $arch"
 	echo "Base:          $basetgz"
 	echo "Distribution:  $distro"
-	echo "Keyring:       $keyring"
 	echo "pbuilderrc:    $pbuilderrc"
 	echo "Proxy:         $proxy"
 }

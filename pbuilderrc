@@ -117,12 +117,14 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     MIRRORSITE="http://$DEBIAN_MIRROR"
     COMPONENTS="main contrib non-free"
     OTHERMIRROR=""
+    DEBOOTSTRAPOPTS=("--keyring=/etc/apt/trusted.gpg" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg" "${DEBOOTSTRAPOPTS[@]}")
 
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
     # Ubuntu configuration
     MIRRORSITE="http://$UBUNTU_MIRROR"
     COMPONENTS="main universe multiverse"
     OTHERMIRROR="deb http://$UBUNTU_MIRROR $DIST-security main|deb http://$UBUNTU_MIRROR $DIST-updates main"
+    DEBOOTSTRAPOPTS=("--keyring=/etc/apt/trusted.gpg" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg" "${DEBOOTSTRAPOPTS[@]}")
 
 else
     echo "Unknown distribution: $DIST"
