@@ -20,10 +20,12 @@ export DIST="$distro"
 export ARCH="$arch"
 
 # Sensitive paths
-config="/usr/lib/liftoff/liftoff.conf"
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
-source "$config"
+# Read Debian codenames from pbuilderrc
+export $(grep STABLE_CODENAME= $pbuilderrc | tr -d '"')
+export $(grep TESTING_CODENAME= $pbuilderrc | tr -d '"')
+export $(grep UNSTABLE_CODENAME= $pbuilderrc | tr -d '"')
 
 # Determine base path and keyring
 keyring="/usr/share/keyrings/debian-archive-keyring.gpg"
