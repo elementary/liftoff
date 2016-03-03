@@ -7,8 +7,6 @@ while getopts a:d:o: var; do
 		d) distro="$OPTARG";;
 		o) output_dir="$OPTARG";;
 # Sensitive values hardcoded by default for security
-#		c) config="$OPTARG";;
-#		k) keyring="$OPTARG";;
 #		p) pbuilderrc="$OPTARG";;
 #		s) proxy="$OPTARG";;
 # Don't forget to add newly enabled flags to getopts above!
@@ -61,7 +59,6 @@ build_package() {
 print_debug() {
 	echo "Architecture:  $arch"
 	echo "Base:          $basetgz"
-	echo "Configuration: $config"
 	echo "Distribution:  $distro"
 	echo "Keyring:       $keyring"
 	echo "pbuilderrc:    $pbuilderrc"
