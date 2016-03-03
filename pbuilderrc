@@ -62,7 +62,7 @@ else
 fi
 
 # Default file extension for pkgname-logfile
-PKGNAME_LOGFILE_EXTENTION="_$(dpkg --print-architecture).log"
+PKGNAME_LOGFILE_EXTENSION="_$(dpkg --print-architecture).log"
 
 # Always run with --pkgname-logfile option, and create
 # a logfile named after the package name.
