@@ -1,2 +1,3 @@
-bin/* usr/bin
-lib/* usr/lib/liftoff
+hooks usr/lib/liftoff
+liftoff usr/bin
+pbuilderrc usr/lib/liftoff
