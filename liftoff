@@ -22,22 +22,20 @@ export ARCH="$arch"
 # Sensitive paths
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
-# Read Debian codenames from pbuilderrc
-export $(grep STABLE_CODENAME= $pbuilderrc | tr -d '"')
-export $(grep TESTING_CODENAME= $pbuilderrc | tr -d '"')
-export $(grep UNSTABLE_CODENAME= $pbuilderrc | tr -d '"')
-
 # Determine base path and keyring
 keyring="/usr/share/keyrings/debian-archive-keyring.gpg"
 case "$distro" in
 	testing)
-		basetgz="/var/cache/liftoff/$testing_codename-${arch}-base.tgz"
+		export $(grep TESTING_CODENAME= $pbuilderrc | tr -d '"')
+		basetgz="/var/cache/liftoff/$TESTING_CODENAME-${arch}-base.tgz"
 		;;
 	unstable)
-		basetgz="/var/cache/liftoff/$unstable_codename-${arch}-base.tgz"
+		export $(grep UNSTABLE_CODENAME= $pbuilderrc | tr -d '"')
+		basetgz="/var/cache/liftoff/$UNSTABLE_CODENAME-${arch}-base.tgz"
 		;;
 	stable)
-		basetgz="/var/cache/liftoff/$stable_codename-${arch}-base.tgz"
+		export $(grep STABLE_CODENAME= $pbuilderrc | tr -d '"')
+		basetgz="/var/cache/liftoff/$STABLE_CODENAME-${arch}-base.tgz"
 		;;
 	*)
 		basetgz="/var/cache/liftoff/$distro-${arch}-base.tgz"
