@@ -1,6 +1,9 @@
 HOOKDIR="/usr/lib/liftoff/hooks"
 CACHEDIR="/var/cache/liftoff"
 
+# apt-cache-ng URL e.g. http://X.X.X.X:3142
+export http_proxy=""
+
 # Threaded decompression
 COMPRESSPROG=pixz
 
