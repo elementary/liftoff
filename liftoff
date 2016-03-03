@@ -6,10 +6,6 @@ while getopts a:d:o: var; do
 		a) arch="$OPTARG";;
 		d) distro="$OPTARG";;
 		o) output_dir="$OPTARG";;
-# Sensitive values hardcoded by default for security
-#		p) pbuilderrc="$OPTARG";;
-#		s) proxy="$OPTARG";;
-# Don't forget to add newly enabled flags to getopts above!
 	esac
 done
 
@@ -17,7 +13,6 @@ done
 export DIST="$distro"
 export ARCH="$arch"
 
-# Sensitive paths
 pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 
 # Determine base path
@@ -55,8 +50,6 @@ print_debug() {
 	echo "Architecture:  $arch"
 	echo "Base:          $basetgz"
 	echo "Distribution:  $distro"
-	echo "pbuilderrc:    $pbuilderrc"
-	echo "Proxy:         $proxy"
 }
 #print_debug
 
