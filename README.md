@@ -3,7 +3,7 @@ liftoff -- build packages for elementary OS
 
 ## DESCRIPTION
 
-[liftoff(1)](https://github.com/elementary/liftoff/blob/master/liftoff.1.html) is a `pbuilder`-based script and configuration file for building Debian and Ubuntu packages that supports multiple architectures and custom mirrors, including elementary's.
+`pbuilder`-based script and configuration file for building Debian and Ubuntu packages that supports multiple architectures and custom mirrors, including elementary's.
 
 ## QUICK START
 
