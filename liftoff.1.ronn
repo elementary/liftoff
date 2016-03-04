@@ -1,9 +1,9 @@
-liftoff -- build packages for elementary OS
+liftoff(1) -- build packages for elementary OS
 =
 
 ## DESCRIPTION
 
-[liftoff(1)](https://github.com/elementary/liftoff/blob/master/liftoff.1.html) is a `pbuilder`-based script and configuration file for building Debian and Ubuntu packages that supports multiple architectures and custom mirrors, including elementary's.
+`pbuilder`-based script and configuration file for building Debian and Ubuntu packages that supports multiple architectures and custom mirrors, including elementary's.
 
 ## QUICK START
 
@@ -15,31 +15,31 @@ Execute this in a directory containing both source code and Debian packaging:
 
 ## OPTIONS
 
-*   `-a [architecture]`
+*   <-a> [architecture]:
+    Specifies the architecture to use.
+    The supported values are `amd64` or `armhf` or `i386`.
 
-    Specifies the architecture to use. The supported values are `amd64` or `armhf` or `i386`.
-
-*   `-d [distribution]`
-
+*   <-d> [distribution]:
     Specifies the base Debian or Ubuntu distribution to use.
     The supported values may include `testing` or `xenial`.
     Available distributions are defined in `/usr/lib/liftoff/pbuilderrc` as provided by `debootstrap`.
 
-*   `-o [output location]`
-
+*   <-o> [output location]:
     Specifies the location the build result output after building.
     The resulting .deb, log and other files are copied there.
 
 ## Files
 
-*   `/usr/lib/liftoff/hooks/*`
-
+*   `/usr/lib/liftoff/hooks/*`:
     `pbuilder` hooks used a various stages of the build process such as `lintian`.
 
-*   `/usr/lib/liftoff/pbuilderrc`
-
+*   `/usr/lib/liftoff/pbuilderrc`:
     Extensive `pbuilderrc` passed to underlying `pbuilder` instance.
 
 ## AUTHOR
 
 Cody Garver <cody@elementary.io>
+
+## SEE ALSO
+
+pbuilder(8), pbuilderrc(5)

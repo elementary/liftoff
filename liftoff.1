@@ -1,0 +1,56 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "LIFTOFF" "1" "March 2016" "" ""
+.
+.SH "NAME"
+\fBliftoff\fR \- build packages for elementary OS
+.
+.SH "DESCRIPTION"
+\fBpbuilder\fR\-based script and configuration file for building Debian and Ubuntu packages that supports multiple architectures and custom mirrors, including elementary\'s\.
+.
+.SH "QUICK START"
+This process uses a significant amount of bandwidth and disk space\. Seriously consider using a caching proxy such as \fBapt\-cacher\-ng\fR\. Set the URL of the \fBhttp_proxy\fR in \fB/usr/lib/liftoff/pbuilderrc\fR\.
+.
+.P
+Execute this in a directory containing both source code and Debian packaging:
+.
+.IP "" 4
+.
+.nf
+
+sudo liftoff \-a amd64 \-d xenial \-o /tmp/output\-dir
+.
+.fi
+.
+.IP "" 0
+.
+.SH "OPTIONS"
+.
+.TP
+\fI\-a\fR [architecture]
+Specifies the architecture to use\. The supported values are \fBamd64\fR or \fBarmhf\fR or \fBi386\fR\.
+.
+.TP
+\fI\-d\fR [distribution]
+Specifies the base Debian or Ubuntu distribution to use\. The supported values may include \fBtesting\fR or \fBxenial\fR\. Available distributions are defined in \fB/usr/lib/liftoff/pbuilderrc\fR as provided by \fBdebootstrap\fR\.
+.
+.TP
+\fI\-o\fR [output location]
+Specifies the location the build result output after building\. The resulting \.deb, log and other files are copied there\.
+.
+.SH "Files"
+.
+.TP
+\fB/usr/lib/liftoff/hooks/*\fR
+\fBpbuilder\fR hooks used a various stages of the build process such as \fBlintian\fR\.
+.
+.TP
+\fB/usr/lib/liftoff/pbuilderrc\fR
+Extensive \fBpbuilderrc\fR passed to underlying \fBpbuilder\fR instance\.
+.
+.SH "AUTHOR"
+Cody Garver \fIcody@elementary\.io\fR
+.
+.SH "SEE ALSO"
+pbuilder(8), pbuilderrc(5)
