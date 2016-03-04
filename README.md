@@ -30,7 +30,7 @@ Execute this in a directory containing both source code and Debian packaging:
     Specifies the location the build result output after building.
     The resulting .deb, log and other files are copied there.
 
-## Files
+## FILES
 
 *   `/usr/lib/liftoff/hooks/*`
 
