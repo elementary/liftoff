@@ -152,7 +152,10 @@ fi
 # ppa:elementary-os/os-patches
 OS_PATCHES="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main"
 
+# ppa:elementary-os/os-patches
+STABLE_PPA="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/stable/ubuntu $DIST main"
+
 if [ "$DIST" == "trusty" ] || [ "$DIST" == "xenial" ] ; then
-    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES"
+    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$STABLE_PPA"
     EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
 fi
