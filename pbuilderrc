@@ -158,7 +158,10 @@ STABLE_PPA="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/stable/ubun
 # ppa:gophers/archive
 GO_PPA="deb [trusted=yes] http://ppa.launchpad.net/gophers/archive/ubuntu $DIST main"
 
+# https://github.com/nodesource/distributions
+NODE_REPO="deb [trusted=yes] http://deb.nodesource.com/node_8.x $DIST main"
+
 if [ "$DIST" == "trusty" ] || [ "$DIST" == "xenial" ] ; then
-    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$STABLE_PPA|$GO_PPA"
+    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$STABLE_PPA|$GO_PPA|$NODE_REPO"
     EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
 fi
