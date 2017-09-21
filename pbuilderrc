@@ -4,6 +4,9 @@ CACHEDIR="/var/cache/liftoff"
 # apt-cache-ng URL e.g. http://X.X.X.X:3142
 export http_proxy=""
 
+# Outside connections
+USENETWORK=yes
+
 # Threaded decompression
 COMPRESSPROG=pixz
 
