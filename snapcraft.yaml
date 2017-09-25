@@ -42,6 +42,7 @@ parts:
       - libgcr-ui-3-1
       - libgdk-pixbuf2.0-0
       - libglib2.0-0
+      - libgranite-dev
       - libgstreamer-plugins-base1.0-0
       - libgstreamer-plugins-good1.0-0
       - libgstreamer1.0-0
