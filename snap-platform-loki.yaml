@@ -63,7 +63,8 @@ parts:
       - libgtk-3-bin
       - shared-mime-info
 #      - fonts-emojione
+      - fonts-noto
+      - fonts-noto-cjk
       - fonts-freefont-ttf
-      - fonts-symbola
       - dmz-cursor-theme
       - xdg-user-dirs
