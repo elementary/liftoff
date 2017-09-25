@@ -62,7 +62,7 @@ parts:
       - libglib2.0-bin
       - libgtk-3-bin
       - shared-mime-info
-      - fonts-emojione
+#      - fonts-emojione
       - fonts-freefont-ttf
       - fonts-symbola
       - dmz-cursor-theme
