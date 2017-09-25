@@ -1,0 +1,69 @@
+name: elementary-platform-loki
+version: 0.4.1
+summary: elementary OS 0.4.1 platform snap
+description: |
+ This snap includes elementary OS Loki libaries
+confinement: strict
+grade: stable
+
+slots:
+    elementary-platform-loki:
+      interface: content
+      read:
+        - /
+
+parts:
+  elementary:
+    plugin: nil
+    prepare: |
+      add-apt-repository -y ppa:elementary-os/stable
+      add-apt-repository -y ppa:elementary-os/os-patches
+      echo "Package: *" > /etc/apt/preferences.d/elementary-stable
+      echo "Pin: release o=LP-PPA-elementary-os-stable" >> /etc/apt/preferences.d/elementary-stable
+      echo "Pin-Priority: 1000" >> /etc/apt/preferences.d/elementary-stable
+      echo "Package: *" > /etc/apt/preferences.d/elementary-patches
+      echo "Pin: release o=LP-PPA-elementary-os-os-patches" >> /etc/apt/preferences.d/elementary-patches
+      echo "Pin-Priority: 1000" >> /etc/apt/preferences.d/elementary-patches
+      apt update
+      apt dist-upgrade -y
+  deb:
+    after: [elementary]
+    plugin: nil
+    stage-packages:
+      - libatk1.0-0
+      - libcanberra-gtk3-0
+      - libclutter-1.0-0
+      - libclutter-gst-3.0-0
+      - libclutter-gtk-1.0-0
+      - libcogl20
+      - libgail-3-0
+      - libgck-1-0
+      - libgcr-base-3-1
+      - libgcr-ui-3-1
+      - libgdk-pixbuf2.0-0
+      - libglib2.0-0
+      - libgstreamer-plugins-base1.0-0
+      - libgstreamer-plugins-good1.0-0
+      - libgstreamer1.0-0
+      - libgtk-3-0
+      - libpango-1.0-0
+      - libsoup-gnome2.4-1
+      - libsoup2.4-1
+      - libwebkit2gtk-4.0-37
+      - libxml2
+      # desktop integration components
+      - hicolor-icon-theme
+      - elementary-icon-theme
+      - elementary-theme
+      - fcitx-frontend-gtk3
+      - ibus-gtk3
+      - libc-bin
+      - locales-all
+      - libglib2.0-bin
+      - libgtk-3-bin
+      - shared-mime-info
+      - fonts-emojione
+      - fonts-freefont-ttf
+      - fonts-symbola
+      - dmz-cursor-theme
+      - xdg-user-dirs
