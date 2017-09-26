@@ -67,5 +67,7 @@ parts:
       - fonts-noto
       - fonts-noto-cjk
       - fonts-freefont-ttf
+      - fonts-roboto
+      - fonts-roboto-mono-elementary
       - dmz-cursor-theme
       - xdg-user-dirs
