@@ -55,7 +55,7 @@ parts:
     after: [vala, gee]
     source: https://github.com/ricotz/plank.git
     plugin: autotools
-    source-tag: '0.11.3'
+    source-tag: '0.11.4'
   gee: 
     source: git://git.gnome.org/libgee
     source-tag: '0.20.0'
