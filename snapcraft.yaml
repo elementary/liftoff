@@ -43,6 +43,7 @@ parts:
       - libgdk-pixbuf2.0-0
       - libglib2.0-0
       - libgranite-dev
+      - libgsignon-glib1
       - libgstreamer-plugins-base1.0-0
       - libgstreamer-plugins-good1.0-0
       - libgstreamer1.0-0
