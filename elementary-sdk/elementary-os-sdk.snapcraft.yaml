@@ -1,0 +1,65 @@
+name: elementary-os-sdk
+version: '0.4'
+summary: Library bundle for developers of elementary os applications
+description: |
+  This prototype snap contains only the necessary libraries required by
+  elementary os applications.
+
+confinement: classic
+
+parts:
+  vala:
+    plugin: autotools
+    source: https://github.com/GNOME/vala.git
+    source-tag: '0.36.5'
+    build-packages:
+      - libglib2.0-dev
+      - bison
+      - valac
+      - autotools-dev
+      - flex
+      - gnome-pkg-tools
+      - help2man
+      - xsltproc
+      - libdbus-1-dev
+      - dbus
+      - libgirepository1.0-dev
+  gsignond:
+    source: https://gitlab.com/accounts-sso/gsignond.git
+    plugin: autotools
+    source-tag: '1.0.6'
+  libgsignon-glib:
+    source: https://gitlab.com/accounts-sso/libgsignon-glib.git
+    plugin: autotools
+    source-tag: '2.4.1'
+  granite:
+    after: [vala]
+    source: https://github.com/elementary/granite.git
+    plugin: cmake
+    source-tag: '0.4.1'
+  gala:
+    after: [plank, vala]
+    source: https://github.com/elementary/gala.git
+    plugin: autotools
+  switchboard:
+    after: [granite, vala]
+    source: https://github.com/elementary/switchboard.git
+    plugin: cmake
+    source-tag: '2.3.0'
+  wingpanel:
+    after: [granite, vala]
+    source: https://github.com/elementary/wingpanel.git
+    plugin: cmake
+    source-tag: '2.0.4'
+  plank:
+    after: [vala, gee]
+    source: https://github.com/ricotz/plank.git
+    plugin: autotools
+    source-tag: '0.11.3'
+  gee: 
+    source: git://git.gnome.org/libgee
+    source-tag: '0.20.0'
+    plugin: autotools
+    build-packages:
+      - gobject-introspection
+      - libgirepository1.0-dev
