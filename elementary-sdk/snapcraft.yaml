@@ -1,9 +1,9 @@
-name: elementary-os-sdk
+name: elementary-sdk
 version: '0.4'
-summary: Library bundle for developers of elementary os applications
+summary: Library bundle for developers of elementary OS applications
 description: |
   This prototype snap contains only the necessary libraries required by
-  elementary os applications.
+  elementary OS applications.
 
 confinement: classic
 
