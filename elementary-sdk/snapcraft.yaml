@@ -10,6 +10,7 @@ confinement: classic
 parts:
   vala:
     plugin: autotools
+    configflags: [ --prefix=/usr ]
     source: https://github.com/GNOME/vala.git
     source-tag: '0.36.5'
     build-packages:
@@ -37,6 +38,11 @@ parts:
     source: https://github.com/elementary/granite.git
     plugin: cmake
     source-tag: '0.4.1'
+    build-packages:
+      - libgee-0.8-dev
+      - gobject-introspection
+      - libgirepository1.0-dev
+      - libgtk-3-dev
   gala:
     after: [plank, vala]
     source: https://github.com/elementary/gala.git
@@ -52,14 +58,14 @@ parts:
     plugin: cmake
     source-tag: '2.0.4'
   plank:
-    after: [vala, gee]
+    after: [vala]
     source: https://github.com/ricotz/plank.git
     plugin: autotools
     source-tag: '0.11.4'
-  gee: 
-    source: git://git.gnome.org/libgee
-    source-tag: '0.20.0'
-    plugin: autotools
-    build-packages:
-      - gobject-introspection
-      - libgirepository1.0-dev
+#  gee: 
+#    source: git://git.gnome.org/libgee
+#    source-tag: '0.20.0'
+#    plugin: autotools
+#    build-packages:
+#      - gobject-introspection
+#      - libgirepository1.0-dev
