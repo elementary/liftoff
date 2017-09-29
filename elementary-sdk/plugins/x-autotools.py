@@ -132,7 +132,8 @@ class AutotoolsPlugin(make.MakePlugin):
             configure_command.append('--host={}'.format(self.project.deb_arch))
         env = os.environ.copy()
         env['GI_TYPELIB_PATH'] = self.project.stage_dir + '/usr/lib/' + self.project.arch_triplet + '/girepository-1.0:/usr/lib/' + self.project.arch_triplet + '/girepository-1.0'
-        env['VAPIDIR'] = self.project.stage_dir + '/usr/share/vala-0.36/vapi:/usr/share/vala-0.30/vapi/'
+        env['VAPIDIR'] = self.project.stage_dir + '/usr/share/vala/vapi:' + self.project.stage_dir + '/usr/share/vala-0.36/vapi:/usr/share/vala-0.30/vapi/'
+        env['VALAFLAGS'] = '--vapidir ' + self.project.stage_dir + '/usr/share/vala/vapi --vapidir ' + self.project.stage_dir + '/usr/share/vala-0.36/vapi'
         env['XDG_DATA_DIRS'] = self.project.stage_dir + '/usr/share:/usr/share'
         env['PKG_CONFIG_PATH'] = self.project.stage_dir + '/usr/lib/pkgconfig:/usr/lib/pkgconfig'
         print(env)

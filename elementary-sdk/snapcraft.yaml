@@ -1,18 +1,31 @@
-name: elementary-sdk
+name: elementary-os-sdk
 version: '0.4'
-summary: Library bundle for developers of elementary OS applications
+summary: Library bundle for developers of elementary os applications
 description: |
   This prototype snap contains only the necessary libraries required by
-  elementary OS applications.
+  elementary os applications.
 
-confinement: classic
+confinement: devmode
 
 parts:
+  # ppa:
+  #   plugin: nil
+  #   prepare: |
+  #     add-apt-repository -y ppa:elementary-os/stable
+  #     add-apt-repository -y ppa:elementary-os/os-patches
+  #     echo "Package: *" > /etc/apt/preferences.d/elementary-stable
+  #     echo "Pin: release o=LP-PPA-elementary-os-stable" >> /etc/apt/preferences.d/elementary-stable
+  #     echo "Pin-Priority: 1000" >> /etc/apt/preferences.d/elementary-stable
+  #     echo "Package: *" > /etc/apt/preferences.d/elementary-patches
+  #     echo "Pin: release o=LP-PPA-elementary-os-os-patches" >> /etc/apt/preferences.d/elementary-patches
+  #     echo "Pin-Priority: 1000" >> /etc/apt/preferences.d/elementary-patches
+  #     apt update
+  #     apt dist-upgrade -y
   vala:
     plugin: autotools
-    configflags: [ --prefix=/usr ]
     source: https://github.com/GNOME/vala.git
     source-tag: '0.36.5'
+    configflags: [ --prefix=/usr ]
     build-packages:
       - libglib2.0-dev
       - bison
@@ -29,43 +42,65 @@ parts:
     source: https://gitlab.com/accounts-sso/gsignond.git
     plugin: autotools
     source-tag: '1.0.6'
+    build-packages:
+      - gtk-doc-tools
+      - libsqlite3-dev
   libgsignon-glib:
     source: https://gitlab.com/accounts-sso/libgsignon-glib.git
     plugin: autotools
     source-tag: '2.4.1'
   granite:
-    after: [vala]
+    after: [gee]
     source: https://github.com/elementary/granite.git
-    plugin: cmake
     source-tag: '0.4.1'
+    plugin: cmake
+    configflags: [-DCMAKE_INSTALL_PREFIX=/usr]
     build-packages:
-      - libgee-0.8-dev
-      - gobject-introspection
-      - libgirepository1.0-dev
       - libgtk-3-dev
+      - libglib2.0-dev
   gala:
-    after: [plank, vala]
+    after: [plank]
     source: https://github.com/elementary/gala.git
     plugin: autotools
+    configflags: [--prefix=/usr]
+    build-packages:
+      - gnome-settings-daemon-dev
+      - libmutter-dev
   switchboard:
-    after: [granite, vala]
+    after: [granite]
     source: https://github.com/elementary/switchboard.git
-    plugin: cmake
     source-tag: '2.3.0'
+    plugin: cmake
+    configflags: [-DCMAKE_INSTALL_PREFIX=/usr]
+    build-packages:
+      - libwnck-3-dev
+      - libbamf3-dev
+      - libunity-dev
   wingpanel:
-    after: [granite, vala]
+    after: [granite, gala]
     source: https://github.com/elementary/wingpanel.git
     plugin: cmake
     source-tag: '2.0.4'
+    configflags: [-DCMAKE_INSTALL_PREFIX=/usr]
   plank:
-    after: [vala]
+    after: [gee]
     source: https://github.com/ricotz/plank.git
     plugin: autotools
-    source-tag: '0.11.4'
-#  gee: 
-#    source: git://git.gnome.org/libgee
-#    source-tag: '0.20.0'
+#    source-tag: '0.11.3'
+    configflags: [--prefix=/usr]
+#  autoconf-archive:
+#    source: http://www.localmsp.org/gnu/autoconf-archive/autoconf-archive-2016.09.16.tar.xz
 #    plugin: autotools
-#    build-packages:
-#      - gobject-introspection
-#      - libgirepository1.0-dev
+  gee: 
+    after: [vala]
+    source: git://git.gnome.org/libgee
+    source-tag: '0.20.0'
+    configflags: [ --prefix=/usr ]
+    plugin: autotools
+    build-packages:
+      - gobject-introspection
+      - libgirepository1.0-dev
+      - libglib2.0-dev
+      - libtool
+      - autoconf-archive
+  
