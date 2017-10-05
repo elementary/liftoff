@@ -1,0 +1,7 @@
+#!/bin/sh
+# Configure npm directories
+
+echo "I: Configuring npm directories"
+mkdir -p /tmp/npm
+npm config set prefix /tmp/npm
+export PATH=/tmp/npm/bin:$PATH
