@@ -82,7 +82,7 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME
     "unstable" "testing" "stable")
 
 # List of Ubuntu suites. Update these when needed.
-UBUNTU_SUITES=("precise" "trusty" "xenial")
+UBUNTU_SUITES=("precise" "trusty" "xenial" "bionic")
 
 # Mirrors
 if [ "${ARCH}" != 'i386' ] && [ "${ARCH}" != 'amd64' ]; then
@@ -158,6 +158,9 @@ OS_PATCHES="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/os-patches/
 # ppa:elementary-os/os-patches
 STABLE_PPA="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/stable/ubuntu $DIST main"
 
+# ppa:elementary-os/daily
+DAILY_PPA="deb [trusted=yes] http://ppa.launchpad.net/elementary-os/daily/ubuntu $DIST main"
+
 # ppa:gophers/archive
 GO_PPA="deb [trusted=yes] http://ppa.launchpad.net/gophers/archive/ubuntu $DIST main"
 
@@ -166,5 +169,10 @@ NODE_REPO="deb [trusted=yes] http://deb.nodesource.com/node_8.x $DIST main"
 
 if [ "$DIST" == "trusty" ] || [ "$DIST" == "xenial" ] ; then
     OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$STABLE_PPA|$GO_PPA|$NODE_REPO"
+    EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
+fi
+
+if [ "$DIST" == "bionic" ] ; then
+    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$DAILY_PPA|$GO_PPA|$NODE_REPO"
     EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
 fi
