@@ -173,6 +173,6 @@ if [ "$DIST" == "trusty" ] || [ "$DIST" == "xenial" ] ; then
 fi
 
 if [ "$DIST" == "bionic" ] ; then
-    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$DAILY_PPA|$GO_PPA|$NODE_REPO"
+    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$DAILY_PPA|$GO_PPA"
     EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
 fi
