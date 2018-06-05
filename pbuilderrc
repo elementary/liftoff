@@ -167,12 +167,7 @@ GO_PPA="deb [trusted=yes] http://ppa.launchpad.net/gophers/archive/ubuntu $DIST 
 # https://github.com/nodesource/distributions
 NODE_REPO="deb [trusted=yes] http://deb.nodesource.com/node_8.x $DIST main"
 
-if [ "$DIST" == "trusty" ] || [ "$DIST" == "xenial" ] ; then
+if [ "$DIST" == "trusty" ] || [ "$DIST" == "xenial" || [ "$DIST" == "bionic" ] ; then
     OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$STABLE_PPA|$GO_PPA|$NODE_REPO"
-    EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
-fi
-
-if [ "$DIST" == "bionic" ] ; then
-    OTHERMIRROR="$OTHERMIRROR|$OS_PATCHES|$DAILY_PPA|$GO_PPA|$NODE_REPO"
     EXTRAPACKAGES="$EXTRAPACKAGES elementary-os-overlay"
 fi
