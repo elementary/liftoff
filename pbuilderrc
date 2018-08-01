@@ -10,7 +10,7 @@ USENETWORK=yes
 # Threaded decompression
 COMPRESSPROG=pixz
 
-BUILDPLACE="$CACHEDIR"/build/
+BUILDPLACE=/var/cache/liftoff-build/
 
 USEPROC=yes
 USEDEVPTS=yes
