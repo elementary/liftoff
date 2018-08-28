@@ -113,7 +113,8 @@ DISTRIBUTION="$DIST"
 
 #BUILDRESULT=""$CACHEDIR"/$NAME/result/"
 
-APTCACHE="$CACHEDIR/aptcache/$NAME/"
+# Blank disables .deb caching
+APTCACHE=""
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     # Debian configuration
