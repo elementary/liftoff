@@ -54,7 +54,7 @@ print_debug() {
 #print_debug
 
 # Create environment if it doesn't exist
-if ( ! [ -e "$basetgz" ] || [ "$(stat --format=%s "$basetgz")" -eq 0 ] ); then
+if ! [ -e "$basetgz" ] || [ "$(stat --format=%s "$basetgz")" -eq 0 ]; then
 	create_base
 fi
 
