@@ -18,15 +18,15 @@ pbuilderrc="/usr/lib/liftoff/pbuilderrc"
 # Determine base path
 case "$distro" in
 	testing)
-		export $(grep TESTING_CODENAME= $pbuilderrc | tr -d '"')
+		export "$(grep TESTING_CODENAME= $pbuilderrc | tr -d '"')"
 		basetgz="/var/cache/liftoff/$TESTING_CODENAME-${arch}-base.tgz"
 		;;
 	unstable)
-		export $(grep UNSTABLE_CODENAME= $pbuilderrc | tr -d '"')
+		export "$(grep UNSTABLE_CODENAME= $pbuilderrc | tr -d '"')"
 		basetgz="/var/cache/liftoff/$UNSTABLE_CODENAME-${arch}-base.tgz"
 		;;
 	stable)
-		export $(grep STABLE_CODENAME= $pbuilderrc | tr -d '"')
+		export "$(grep STABLE_CODENAME= $pbuilderrc | tr -d '"')"
 		basetgz="/var/cache/liftoff/$STABLE_CODENAME-${arch}-base.tgz"
 		;;
 	*)
