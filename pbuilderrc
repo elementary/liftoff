@@ -90,7 +90,7 @@ if [ "${ARCH}" != 'i386' ] && [ "${ARCH}" != 'amd64' ]; then
     UBUNTU_MIRROR="ports.ubuntu.com/ubuntu-ports"
 else
     DEBIAN_MIRROR="nyc1.mirrors.digitalocean.com/debian"
-    UBUNTU_MIRROR="nyc1.mirrors.digitalocean.com/ubuntu"
+    UBUNTU_MIRROR="us.archive.ubuntu.com/ubuntu"
 fi
 
 # Optionally change Debian release states in $DIST to their names.
