@@ -127,7 +127,7 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
     # Ubuntu configuration
     MIRRORSITE="http://$UBUNTU_MIRROR"
     COMPONENTS="main universe multiverse"
-    OTHERMIRROR="deb http://$UBUNTU_MIRROR $DIST-security main|deb http://$UBUNTU_MIRROR $DIST-updates main"
+    OTHERMIRROR="deb http://$UBUNTU_MIRROR $DIST-security main universe multiverse|deb http://$UBUNTU_MIRROR $DIST-updates main universe multiverse"
     DEBOOTSTRAPOPTS=("--keyring=/etc/apt/trusted.gpg" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg" "${DEBOOTSTRAPOPTS[@]}")
 
 else
