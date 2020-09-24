@@ -9,6 +9,7 @@ Homepage: http://elementary.io
 Package: liftoff
 Architecture: any
 Depends: debhelper,
+         dh-python,
 #        ccache,
          debian-archive-keyring,
 #        debian-keyring,
